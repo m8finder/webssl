@@ -50,3 +50,7 @@ config can you find in the [test directory](./test/.opensslrc.yaml).
 ### Programmatically
 
 See [cli.js](./cli.js)
+
+## Future
+
+- Add to [GitHub Package Registry](https://github.com/features/package-registry)

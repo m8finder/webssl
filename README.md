@@ -3,6 +3,11 @@
 Simply create OpenSSL certificates on your Mac for development use locally on
 your computer.
 
+## Install
+
+- Globally: `npm i -g openssl-web-development`
+- Locally: `npm i -D openssl-web-development`
+
 ## How to use
 
 Options can be stored in all available

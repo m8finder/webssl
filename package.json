@@ -1,6 +1,6 @@
 {
   "name": "openssl-web-development",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simply create OpenSSL certificates for development use locally on your computer",
   "keywords": [
     "openssl",

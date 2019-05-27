@@ -20,7 +20,9 @@ class OpenSSL {
     }
     const defaults = {
       bits: 2048,
+      filename: 'openssl',
       addToKeychain: false,
+      removeOld: false,
     }
     this.cnf = { ...defaults, ...customCnf, ...config }
 
@@ -31,6 +33,10 @@ class OpenSSL {
     const filename = this.cnf.filename || this.cnf.commonName
     this.keyPath = path.resolve(this.dest, `${filename}.key`)
     this.certPath = path.resolve(this.dest, `${filename}.crt`)
+
+    console.log('Options')
+    console.log(this.cnf)
+    console.log() // line-break
 
     this.spinner = ora()
 
@@ -61,35 +67,63 @@ class OpenSSL {
   }
 
   async addToKeychain() {
-    this.spinner.start('Adding certificate to macOS Keychain...')
+    this.spinner.indent = 2
+    console.log() // line-break
+    console.log('Adding certificate to macOS Keychain...')
+
     // 1. ask for sudo
+    // this.spinner.start('Ask for sudo...')
     // const sudo = await keychain.askForSudo()
     // if (!sudo) return
 
     // 2. get user keychain
+    this.spinner.start('Get user keychain...')
     const key = await keychain.getKeychain('user')
+    if (key) {
+      this.spinner.succeed()
+    } else {
+      this.spinner.fail()
+      console.log('No keychain found for your user!')
+      process.exit(0)
+    }
 
     // 3. find cert with same name
+    this.spinner.start('Find existing cert...')
     const alreadyInstalled = await keychain.find(this.cnf.commonName, key)
     if (alreadyInstalled) {
-      console.log(
-        chalk.red(
-          'Certificate is already installed. Please remove it manually!'
-        )
-      )
       this.spinner.fail()
-      return
-      // TODO: remove current certificate with same name
+      if (this.cnf.removeOld) {
+        this.spinner.start('Remove existing cert...')
+        const successful = await keychain.remove(this.cnf.commonName, key)
+        if (!successful) {
+          this.spinner.fail()
+          process.exit(0)
+        }
+        this.spinner.succeed()
+      } else {
+        console.log(
+          chalk.red(
+            'Certificate is already installed. Please remove it manually!'
+          )
+        )
+        process.exit(0)
+      }
+    } else {
+      this.spinner.succeed()
     }
 
     // 4. add certificate to keychain
+    this.spinner.start('Add cert to keychain...')
     const successful = await keychain.add(this.certPath, key)
     if (!successful) {
       this.spinner.fail()
-      return
+      process.exit(0)
+    } else {
+      this.spinner.succeed()
     }
 
-    this.spinner.succeed()
+    console.log('Done!')
+    this.spinner.indent = 0
   }
 
   addArg(arg, val = null) {

@@ -1,5 +1,7 @@
 # OpenSSL Web Development
 
+[![npm](https://img.shields.io/npm/v/openssl-web-development.svg?style=for-the-badge)](https://www.npmjs.com/package/openssl-web-development)
+
 Simply create OpenSSL certificates on your Mac for development use locally on
 your computer.
 
@@ -18,7 +20,7 @@ config can you find in the [test directory](./test/.opensslrc.yaml).
 
 ```shell
   Usage
-    $ owd <destination> <...dns> [flags]
+    $ owd <destination> [flags]
 
   Arguments
     <destination>  Where to save everything  (default: ./)
@@ -26,6 +28,7 @@ config can you find in the [test directory](./test/.opensslrc.yaml).
   Options
     --filename, -f        The name of the file which gets generated   (default: ssl)
     --addToKeychain, -k   Add your generated key file to Keychain     (default: false)
+    --removeOld, -r       Remove your old key from Keychain           (default: false)
     --config              Path to config file or false to disable     (default: .)
     --dns                 DNS entries split by comma(!).              (default: null)
 
@@ -33,8 +36,8 @@ config can you find in the [test directory](./test/.opensslrc.yaml).
     --countryName, -C             OpenSSL `countryName` subject entry*
     --stateOrProvinceName, -ST    OpenSSL `stateOrProvinceName` subject entry*
     --localityName, -L            OpenSSL `localityName` subject entry*
-    --organizationName, -O        OpenSSL `localityName` subject entry*
-    --organizationalUnit, -OU     OpenSSL `localityName` subject entry
+    --organizationName, -O        OpenSSL `organizationName` subject entry*
+    --organizationalUnit, -OU     OpenSSL `organizationalUnit` subject entry
     --emailAddress                OpenSSL `emailAddress` subject entry
 
   Examples

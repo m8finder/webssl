@@ -86,3 +86,14 @@ add-trusted-cert [-d] [-r resultType] [-p policy] [-a appPath] [-s policyString]
       Examples
             security> add-trusted-cert /tmp/cert.der
             security> add-trusted-cert -d .tmp/cert.der
+
+
+
+delete-certificate [-h] [-c name] [-Z hash] [-t] [keychain...]
+      Delete a certificate from a keychain.  If no keychain arguments are provided, the default search list is used.
+
+      -c name         Specify certificate to delete by its common name
+      -Z hash         Specify certificate to delete by its SHA-1 hash
+      -t              Also delete user trust settings for this certificate
+
+      The certificate to be deleted must be uniquely specified either by a string found in its common name, or by its SHA-1 hash.

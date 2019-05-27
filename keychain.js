@@ -13,7 +13,8 @@ const keychain = {
       return true
     } catch (process) {
       // console.log(chalk.red(process.cmd))
-      throw new Error(process.stderr)
+      console.log(error.stderr)
+      return false
     }
   },
   getKeychain: async domain => {
@@ -23,7 +24,8 @@ const keychain = {
       return process.stdout.trim().replace(/"/g, '')
     } catch (process) {
       // console.log(chalk.red(process.cmd))
-      throw new Error(process.stderr)
+      console.log(error.stderr)
+      return false
     }
   },
   find: async (name, keychain) => {
@@ -64,8 +66,27 @@ const keychain = {
       }
       return true
     } catch (error) {
-      console.log(error)
-      throw new Error(error.stderr)
+      console.log(error.stderr)
+      return false
+    }
+  },
+  remove: async (name, keychain) => {
+    try {
+      const process = await execa('security', [
+        'delete-certificate',
+        '-c',
+        name,
+        '-t',
+        keychain,
+      ])
+      // console.log(chalk.yellow(process.cmd))
+      if (process.stderr) {
+        return false
+      }
+      return true
+    } catch (error) {
+      console.log(error.stderr)
+      return false
     }
   },
 }

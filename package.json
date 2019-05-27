@@ -1,6 +1,6 @@
 {
   "name": "openssl-web-development",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Simply create OpenSSL certificates for development use locally on your computer",
   "keywords": [
     "openssl",
@@ -19,12 +19,11 @@
     "url": "https://www.m8finder.net/"
   },
   "bin": {
-    "owd": "./cli.js"
+    "owd": "./bin/index.js"
   },
   "scripts": {
     "test-cli": "cd test && node ../cli.js ./_out",
-    "help": "node cli.js --help",
-    "build": "node build.js"
+    "help": "node cli.js --help"
   },
   "dependencies": {
     "chalk": "^2.4.2",
@@ -32,8 +31,5 @@
     "execa": "^1.0.0",
     "meow": "^5.0.0",
     "ora": "^3.4.0"
-  },
-  "devDependencies": {
-    "@zeit/ncc": "^0.18.5"
   }
 }

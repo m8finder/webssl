@@ -1,0 +1,88 @@
+MAN SECURITY
+27.05.2019
+
+
+list-keychains [-h] [-d user|system|common|dynamic] [-s [keychain...]]
+      Display or manipulate the keychain search list.
+
+      -d user|system|common|dynamic
+                Use the specified preference domain.
+      -s       Set the search list to the specified keychains.
+
+
+
+find-certificate [-h] [-a] [-c name] [-e emailAddress] [-m] [-p] [-Z] [keychain...]
+
+      Find a certificate item.  If no keychain arguments are provided, the
+      default search list is used.
+
+      Options:
+      -a              Find all matching certificates, not just the first one
+      -c name         Match on name when searching (optional)
+      -e emailAddress
+                      Match on emailAddress when searching (optional)
+      -m              Show the email addresses in the certificate
+      -p              Output certificate in pem format.  Default is to dump the
+                      attributes and keychain the cert is in.
+      -Z              Print SHA-1 hash of the certificate
+
+      Examples
+
+      security> find-certificate -a -p > allcerts.pem
+                Exports all certificates from all keychains into a pem
+                file called allcerts.pem.
+
+      security> find-certificate -a -e me@foo.com -p > certs.pem
+                Exports all certificates from all keychains with the email
+                address me@foo.com into a pem file called certs.pem.
+
+      security> find-certificate -a -c MyName -Z login.keychain | grep ^SHA-1
+                Print the SHA-1 hash of every certificate in 'login.keychain'
+                whose common name includes 'MyName'
+
+
+
+add-certificates [-h] [-k keychain] file...
+
+      Add certficates contained in the specified files to the default keychain. The files
+      must contain one DER encoded X509 certificate each.
+
+      Options:
+      -k keychain     Use keychain rather than the default keychain.
+
+
+
+add-trusted-cert [-d] [-r resultType] [-p policy] [-a appPath] [-s policyString] [-e allowedError] [-u keyUsage] [-k keychain] [-i settingsFileIn] [-o settingsFileOut] certFile
+
+      Add certificate (in DER or PEM format) from certFile to per-user or local Admin Trust Settings. When modifying per-user Trust Settings, user authentication is required via an authentication dialog. When modifying admin Trust Settings, the process must be running as root, or admin authentication is required.
+
+      Options:
+      -d              Add to admin cert store; default is user.
+      -r resultType   resultType = trustRoot|trustAsRoot|deny|unspecified; default is trustRoot.
+      -p policy       Specify policy constraint (ssl, smime, codeSign, IPSec, basic, swUpdate, pkgSign, eap, macappstore, appleID, timestamping).
+      -r resultType   resultType = trustRoot|trustAsRoot|deny|unspecified; default is trustRoot.
+      -a appPath      Specify application constraint.
+      -s policyString
+                      Specify policy-specific string.
+      -e allowedError
+                      Specify allowed error (an integer value, or one of: certExpired, hostnameMismatch)
+      -u keyUsage     Specify key usage, an integer.
+      -k keychain     Specify keychain to which cert is added.
+      -i settingsFileIn
+                      Input trust settings file; default is user domain.
+      -o settingsFileOut
+                      Output trust settings file; default is user domain.
+
+      Key usage codes:
+          -1 - Any
+          1 - Sign
+          2 - Encrypt/Decrypt Data
+          4 - Encrypt/Decrypt Key
+          8 - Sign certificate
+          16 - Sign revocation
+          32 - Key exchange
+          To specify more than one usage, add values together (except -1 - Any).
+
+      Examples
+            security> add-trusted-cert /tmp/cert.der
+            security> add-trusted-cert -d .tmp/cert.der

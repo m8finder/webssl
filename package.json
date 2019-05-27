@@ -1,0 +1,39 @@
+{
+  "name": "openssl-web-development",
+  "version": "0.1.0",
+  "description": "Simply create OpenSSL certificates for development use locally on your computer",
+  "keywords": [
+    "openssl",
+    "development",
+    "website"
+  ],
+  "homepage": "https://github.com/m8finder/openssl-web-development",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m8finder/openssl-web-development.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "M8FINDER",
+    "email": "development@m8finder.net",
+    "url": "https://www.m8finder.net/"
+  },
+  "bin": {
+    "owd": "./cli.js some.net test.de"
+  },
+  "scripts": {
+    "test": "cd test && node ../cli.js ./_out",
+    "help": "node cli.js --help",
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "cosmiconfig": "^5.2.0",
+    "execa": "^1.0.0",
+    "meow": "^5.0.0",
+    "ora": "^3.4.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.18.5"
+  }
+}

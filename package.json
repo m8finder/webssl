@@ -22,7 +22,7 @@
     "owd": "./cli.js"
   },
   "scripts": {
-    "test": "cd test && node ../cli.js ./_out",
+    "test-cli": "cd test && node ../cli.js ./_out",
     "help": "node cli.js --help",
     "build": "node build.js"
   },

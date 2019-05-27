@@ -34,8 +34,7 @@ class OpenSSL {
 
     this.spinner = ora()
 
-    // this.run()
-    this.addToKeychain()
+    this.run()
   }
 
   async run() {
@@ -85,7 +84,10 @@ class OpenSSL {
 
     // 4. add certificate to keychain
     const successful = await keychain.add(this.certPath, key)
-    console.log(successful)
+    if (!successful) {
+      this.spinner.fail()
+      return
+    }
 
     this.spinner.succeed()
   }

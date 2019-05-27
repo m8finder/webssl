@@ -19,7 +19,7 @@
     "url": "https://www.m8finder.net/"
   },
   "bin": {
-    "owd": "./cli.js some.net test.de"
+    "owd": "./cli.js"
   },
   "scripts": {
     "test": "cd test && node ../cli.js ./_out",

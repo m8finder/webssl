@@ -4,16 +4,16 @@
 
 const chalk = require('chalk')
 const meow = require('meow')
-const OpenSSL = require('./openssl')
+const WebSSL = require('./openssl')
 
 // prettier-ignore
 const cli = meow(
   `
   ${chalk.blue('Usage')}
-    $ owd <destination> [flags]
+    $ webssl <destination> [flags]
 
   ${chalk.blue('Arguments')}
-    <destination>  Where to save everything  (default: ${chalk.yellow('./')})
+    <destination>  Where to save everything  (default: ${chalk.yellow('process.cwd()')})
 
   ${chalk.blue('Options')}
     --filename, -f        The name of the file which gets generated   (default: ${chalk.yellow('ssl')})
@@ -31,7 +31,7 @@ const cli = meow(
     --emailAddress                OpenSSL \`emailAddress\` subject entry
 
   ${chalk.blue('Examples')}
-    $ owd /Users/Hi/Downloads \\
+    $ webssl /Users/Hi/Downloads \\
         --dns some.net,test.de \\
         --commonName Test
 
@@ -113,15 +113,17 @@ const options = {
   removeOld,
   config,
   dns,
-  commonName,
-  countryName,
-  stateOrProvinceName,
-  localityName,
-  organizationName,
-  organizationalUnit,
-  emailAddress,
+  openssl: {
+    commonName,
+    countryName,
+    stateOrProvinceName,
+    localityName,
+    organizationName,
+    organizationalUnit,
+    emailAddress,
+  },
 }
 
 options.destination = cli.input[0] || process.cwd()
 
-new OpenSSL(options)
+new WebSSL(options)

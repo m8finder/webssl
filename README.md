@@ -12,18 +12,14 @@ your computer.
 
 ## How to use
 
-Options can be stored in all available
-[cosmiconfig](https://www.npmjs.com/package/cosmiconfig) formats. An example
-config can you find in the [test directory](./test/.opensslrc.yaml).
-
 ### Command Line
 
 ```shell
   Usage
-    $ owd <destination> [flags]
+    $ webssl <destination> [flags]
 
   Arguments
-    <destination>  Where to save everything  (default: ./)
+    <destination>  Where to save everything  (default: process.cwd())
 
   Options
     --filename, -f        The name of the file which gets generated   (default: ssl)
@@ -41,7 +37,7 @@ config can you find in the [test directory](./test/.opensslrc.yaml).
     --emailAddress                OpenSSL `emailAddress` subject entry
 
   Examples
-    $ owd /Users/Hi/Downloads \
+    $ webssl /Users/Hi/Downloads \
         --dns some.net,test.de \
         --commonName Test
 
@@ -58,6 +54,53 @@ config can you find in the [test directory](./test/.opensslrc.yaml).
 ### Programmatically
 
 See [cli.js](./cli.js)
+
+```js
+const WebSSL = require('openssl-web-development')
+const options = {}
+
+new WebSSL(options)
+```
+
+## Options
+
+You can also save any parameters to an configuration file. We use cosmiconfig to
+parse them but our search places differ a bit. Here is a list what we search
+for:
+
+- openssl.config.js
+- openssl.ini
+- .openssl
+- .openssl.yaml
+- webssl.config.js
+- webssl.ini
+- .webssl
+- .webssl.yaml
+- package.json
+
+> If you going to use a configuration file, all CLI options will be ignored!
+
+### Example
+
+Here is an example `openssl.ini`:
+
+```ini
+filename=test
+destination=./_out
+
+# this section will be converted to an array
+[dns]
+test.lcl
+test.com
+
+[openssl]
+commonName=test.web
+countryName=DE
+stateOrProvinceName=Hessen
+localityName=Frankfurt am Main
+organizationName=Test
+organizationalUnit=Development
+```
 
 ## Future
 

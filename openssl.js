@@ -5,7 +5,26 @@ const execa = require('execa')
 const chalk = require('chalk')
 const keychain = require('./keychain')
 const cosmiconfig = require('cosmiconfig')
-const explorer = cosmiconfig('openssl')
+const { IniSyncLoader } = require('./ini-parser')
+
+const explorer = cosmiconfig('openssl', {
+  searchPlaces: [
+    'openssl.config.js',
+    'openssl.ini',
+    '.openssl',
+    '.openssl.yaml',
+    'webssl.config.js',
+    'webssl.ini',
+    '.webssl',
+    '.webssl.yaml',
+    'package.json',
+  ],
+  loaders: {
+    '.ini': {
+      sync: IniSyncLoader,
+    },
+  },
+})
 
 class OpenSSL {
   constructor(customCnf) {
@@ -24,13 +43,14 @@ class OpenSSL {
       addToKeychain: false,
       removeOld: false,
     }
+    // TODO: allow better deep merge
     this.cnf = { ...defaults, ...customCnf, ...config }
 
     this.args = []
     this.dest = path.resolve(process.cwd(), this.cnf.destination)
     this.cnfPath = path.resolve(this.dest, 'conf.ini')
 
-    const filename = this.cnf.filename || this.cnf.commonName
+    const filename = this.cnf.filename || this.cnf.openssl.commonName
     this.keyPath = path.resolve(this.dest, `${filename}.key`)
     this.certPath = path.resolve(this.dest, `${filename}.crt`)
 
@@ -89,12 +109,18 @@ class OpenSSL {
 
     // 3. find cert with same name
     this.spinner.start('Find existing cert...')
-    const alreadyInstalled = await keychain.find(this.cnf.commonName, key)
+    const alreadyInstalled = await keychain.find(
+      this.cnf.openssl.commonName,
+      key
+    )
     if (alreadyInstalled) {
       this.spinner.fail()
       if (this.cnf.removeOld) {
         this.spinner.start('Remove existing cert...')
-        const successful = await keychain.remove(this.cnf.commonName, key)
+        const successful = await keychain.remove(
+          this.cnf.openssl.commonName,
+          key
+        )
         if (!successful) {
           this.spinner.fail()
           process.exit(0)
@@ -160,9 +186,9 @@ class OpenSSL {
 
     return (
       '"/' +
-      Object.keys(this.cnf)
+      Object.keys(this.cnf.openssl)
         .filter(k => subjNames.includes(k))
-        .map(v => `${v}=${this.cnf[v]}`)
+        .map(v => `${v}=${this.cnf.openssl[v]}`)
         .join('/') +
       '/"'
     )
@@ -171,7 +197,7 @@ class OpenSSL {
   async writeConfig() {
     this.spinner.start('Writing conf to file...')
     let i = 2
-    const dns_names = this.cnf.dns.map(val => {
+    const dnsNames = this.cnf.dns.map(val => {
       const tmpl = `
 DNS.${i}   = ${val}
 DNS.${i + 1}   = www.${val}
@@ -193,12 +219,12 @@ x509_extensions       = req_ext
 req_extensions        = req_ext
 
 [req_distinguished_name]
-countryName           = ${this.cnf.countryName}
-stateOrProvinceName   = ${this.cnf.stateOrProvinceName}
-localityName          = ${this.cnf.localityName}
-organizationName      = ${this.cnf.organizationName}
-organizationalUnit    = ${this.cnf.organizationalUnit}
-commonName            = ${this.cnf.commonName}
+countryName           = ${this.cnf.openssl.countryName}
+stateOrProvinceName   = ${this.cnf.openssl.stateOrProvinceName}
+localityName          = ${this.cnf.openssl.localityName}
+organizationName      = ${this.cnf.openssl.organizationName}
+organizationalUnit    = ${this.cnf.openssl.organizationalUnit}
+commonName            = ${this.cnf.openssl.commonName}
 
 [req_ext]
 subjectAltName = @alt_names
@@ -207,11 +233,17 @@ subjectAltName = @alt_names
 IP.1    = 127.0.0.1
 IP.2    = ::1
 DNS.1   = localhost
-${dns_names.join("\n")}
+${dnsNames.join("\n")}
   `.trim()
 
-    fs.writeFileSync(this.cnfPath, cnf)
-    this.spinner.succeed()
+    try {
+      fs.writeFileSync(this.cnfPath, cnf)
+      this.spinner.succeed()
+    } catch (error) {
+      this.spinner.fail()
+      throw new Error(error)
+    }
+
     return true
   }
 }

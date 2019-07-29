@@ -52,10 +52,7 @@ class OpenSSL {
     this.outDir = this.cnf.outDir.startsWith('/')
       ? this.cnf.outDir
       : path.resolve(this.cwd, this.cnf.outDir)
-    this.sslDir = this.cnf.sslDir.startsWith('/')
-      ? this.cnf.sslDir
-      : path.resolve(this.cwd, this.cnf.sslDir)
-    this.cnfPath = path.resolve(this.sslDir, 'conf.ini')
+    this.cnfPath = path.resolve(this.outDir, 'conf.ini')
 
     const filename = this.cnf.filename || this.cnf.openssl.commonName
     this.keyPath = path.resolve(this.outDir, `${filename}.key`)

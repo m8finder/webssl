@@ -10,15 +10,10 @@ const WebSSL = require('./openssl')
 const cli = meow(
   `
   ${chalk.blue('Usage')}
-    $ webssl [flags] <out_dir> <ssl_dir>
+    $ webssl [flags] <out_dir>
 
   ${chalk.blue('Arguments')}
     <out_dir>   Where to save all files          (default: ${chalk.yellow('/Current/Folder')})*
-    <ssl_dir>   Path to cert, key and conf.ini   (default: ${chalk.yellow('<out_dir>')})
-
-    In a Docker container e.g. the 'ssl_dir' differs from the 'out_dir' because
-    you save the files in 'out_dir' but inside the container the files are in
-    a different location.
 
     Path can be absolute (starting with a slash) or relative. Relative path
     will be resolved with the folder you are executing this script from.
@@ -145,7 +140,6 @@ const options = {
 }
 
 options.outDir = cli.input[0] || process.cwd()
-options.sslDir = cli.input[1] || options.outDir
 
 const webssl = new WebSSL(options)
 webssl.generate()

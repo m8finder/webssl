@@ -29,15 +29,10 @@ work!
   Simply create OpenSSL certificates for your local development
 
   Usage
-    $ webssl [flags] <out_dir> <ssl_dir>
+    $ webssl [flags] <out_dir>
 
   Arguments
     <out_dir>   Where to save all files          (default: /Current/Folder)*
-    <ssl_dir>   Path to cert, key and conf.ini   (default: <out_dir>)
-
-    In a Docker container e.g. the 'ssl_dir' differs from the 'out_dir' because
-    you save the files in 'out_dir' but inside the container the files are in
-    a different location.
 
     Path can be absolute (starting with a slash) or relative. Relative path
     will be resolved with the folder you are executing this script from.

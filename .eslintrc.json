@@ -1,14 +1,17 @@
 {
   "extends": [
+    "eslint:recommended",
     "prettier"
   ],
   "plugins": [
     "prettier"
   ],
   "parserOptions": {
-    "ecmaVersion": 9
+    "ecmaVersion": 9,
   },
   "env": {
-    "es6": true
+    "es6": true,
+    "commonjs": true,
+    "node": true
   }
 }

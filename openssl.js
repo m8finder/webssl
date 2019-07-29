@@ -167,10 +167,10 @@ class OpenSSL {
     await this.addArg('newkey', `rsa:${this.cnf.bits}`)
     await this.addArg('nodes')
     await this.addArg('subj', this.formatSubj())
-    await this.addArg('config', this.cnfPath)
+    await this.addArg('config', `"${this.cnfPath}"`)
     await this.addArg('days', 365)
-    await this.addArg('keyout', this.keyPath)
-    await this.addArg('out', this.certPath)
+    await this.addArg('keyout', `"${this.keyPath}"`)
+    await this.addArg('out', `"${this.certPath}"`)
     this.spinner.indent = 0
     console.log('Done!\n')
   }

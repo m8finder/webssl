@@ -11,8 +11,8 @@ const keychain = {
         return false
       }
       return true
-    } catch (process) {
-      // console.log(chalk.red(process.cmd))
+    } catch (error) {
+      // console.log(chalk.red(error.cmd))
       console.log(error.stderr)
       return false
     }
@@ -35,7 +35,7 @@ const keychain = {
         return false
       }
     } catch (error) {
-      // console.log(chalk.red(process.cmd))
+      // console.log(chalk.red(error.cmd))
       console.log(error.stderr)
       return false
     }
@@ -54,12 +54,12 @@ const keychain = {
         return true // found cert
       }
       return false
-    } catch (process) {
-      // console.log(chalk.red(process.cmd))
-      if (process.code == 44) {
+    } catch (error) {
+      // console.log(chalk.red(error.cmd))
+      if (error.code == 44) {
         return false
       }
-      throw new Error(process.stderr)
+      throw new Error(error.stderr)
     }
   },
   add: async (cert, keychain) => {

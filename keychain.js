@@ -17,12 +17,24 @@ const keychain = {
       return false
     }
   },
-  getKeychain: async domain => {
+  getKeychain: async (domain, keychain = 'login') => {
     try {
       const process = await execa('security', ['list-keychains', '-d', domain])
       // console.log(chalk.yellow(process.cmd))
-      return process.stdout.trim().replace(/"/g, '')
-    } catch (process) {
+      const keychains = process.stdout.split('\n').map(str =>
+        str
+          .trim()
+          .toLowerCase()
+          .replace(/"/g, '')
+      )
+      const activeKeychain = keychains.find(s => s.search(keychain) >= 0)
+
+      if (activeKeychain) {
+        return activeKeychain
+      } else {
+        return false
+      }
+    } catch (error) {
       // console.log(chalk.red(process.cmd))
       console.log(error.stderr)
       return false

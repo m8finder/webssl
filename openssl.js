@@ -42,6 +42,7 @@ class OpenSSL {
       filename: 'openssl',
       addToKeychain: false,
       removeOld: false,
+      keychain: 'login',
     }
     // TODO: allow better deep merge
     this.cnf = { ...defaults, ...customCnf, ...config }
@@ -98,8 +99,8 @@ class OpenSSL {
 
     // 2. get user keychain
     this.spinner.start('Get user keychain...')
-    const key = await keychain.getKeychain('user')
-    if (key) {
+    const keychainPath = await keychain.getKeychain('user', this.cnf.keychain)
+    if (keychainPath) {
       this.spinner.succeed()
     } else {
       this.spinner.fail()
@@ -111,7 +112,7 @@ class OpenSSL {
     this.spinner.start('Find existing cert...')
     const alreadyInstalled = await keychain.find(
       this.cnf.openssl.commonName,
-      key
+      keychainPath
     )
     if (alreadyInstalled) {
       this.spinner.fail()
@@ -119,7 +120,7 @@ class OpenSSL {
         this.spinner.start('Remove existing cert...')
         const successful = await keychain.remove(
           this.cnf.openssl.commonName,
-          key
+          keychainPath
         )
         if (!successful) {
           this.spinner.fail()
@@ -140,7 +141,7 @@ class OpenSSL {
 
     // 4. add certificate to keychain
     this.spinner.start('Add cert to keychain...')
-    const successful = await keychain.add(this.certPath, key)
+    const successful = await keychain.add(this.certPath, keychainPath)
     if (!successful) {
       this.spinner.fail()
       process.exit(0)
@@ -207,10 +208,10 @@ DNS.${i + 1}   = www.${val}
     })
     // prettier-ignore
     const cnf = `
-# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #     This should only be used in development environments
-#     due to security vulnerabilities!
-# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#     due to security reasons, so use this at your own risk!
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 [req]
 default_bits          = ${this.cnf.bits}

@@ -17,10 +17,11 @@ const cli = meow(
 
   ${chalk.blue('Options')}
     --filename, -f        The name of the file which gets generated   (default: ${chalk.yellow('ssl')})
-    --addToKeychain, -k   Add your generated key file to Keychain     (default: ${chalk.yellow('false')})
+    --addToKeychain, -a   Add your generated key file to Keychain     (default: ${chalk.yellow('false')})
     --removeOld, -r       Remove your old key from Keychain           (default: ${chalk.yellow('false')})
+    --keychain, -k        Select a keychain                           (default: ${chalk.yellow('login')})
     --config              Path to config file or false to disable     (default: ${chalk.yellow('.')})
-    --dns                 DNS entries split by comma(!).              (default: ${chalk.yellow('null')})
+    --dns                 DNS entries split by a comma.               (default: ${chalk.yellow('null')})
 
     --commonName, -CN             OpenSSL \`commonName\` subject entry${chalk.red('*')}
     --countryName, -C             OpenSSL \`countryName\` subject entry${chalk.red('*')}
@@ -35,7 +36,7 @@ const cli = meow(
         --dns some.net,test.de \\
         --commonName Test
 
-  ${chalk.red('*')} this is required
+  ${chalk.red('*')} this is required unless you do not have it in a config file
 `,
   {
     flags: {
@@ -52,13 +53,18 @@ const cli = meow(
       },
       addToKeychain: {
         type: 'boolean',
-        alias: 'k',
+        alias: 'a',
         default: false
       },
       removeOld: {
         type: 'boolean',
         alias: 'r',
         default: false
+      },
+      keychain: {
+        type: 'string',
+        alias: 'k',
+        default: 'login'
       },
       commonName: {
         type: 'string',
@@ -95,6 +101,7 @@ const {
   filename,
   addToKeychain,
   removeOld,
+  keychain,
   commonName,
   countryName,
   stateOrProvinceName,
@@ -111,6 +118,7 @@ const options = {
   filename,
   addToKeychain,
   removeOld,
+  keychain,
   config,
   dns,
   openssl: {

@@ -2,54 +2,69 @@
 
 [![npm](https://img.shields.io/npm/v/openssl-web-development.svg?style=for-the-badge)](https://www.npmjs.com/package/openssl-web-development)
 
-Simply create OpenSSL certificates on your Mac for development use locally on
-your computer.
+Simply create [OpenSSL][1] certificates for your local development that just
+work!
+
+- [Install](#install)
+- [How to use](#how-to-use)
+  - [Command Line](#command-line)
+  - [Programmatically](#programmatically)
+- [Options](#options)
+  - [Example](#example)
+- [Future](#future)
 
 ## Install
 
-- Globally: `npm i -g openssl-web-development`
-- Locally: `npm i -D openssl-web-development`
+- Globally: `npm install -g openssl-web-development`
+- Locally: `npm install --save-dev openssl-web-development`
 
 ## How to use
+
+> We recommend to create a new keychain `development` where you save all
+> certificates that has something todo with projects you are currently
+> developing in.
 
 ### Command Line
 
 ```shell
-  Usage
-    $ webssl <destination> [flags]
+Simply create OpenSSL certificates for development use locally on your computer
 
-  Arguments
-    <destination>  Where to save everything  (default: process.cwd())
+Usage
+  $ webssl <destination> [flags]
 
-  Options
-    --filename, -f        The name of the file which gets generated   (default: ssl)
-    --addToKeychain, -k   Add your generated key file to Keychain     (default: false)
-    --removeOld, -r       Remove your old key from Keychain           (default: false)
-    --config              Path to config file or false to disable     (default: .)
-    --dns                 DNS entries split by comma(!).              (default: null)
+Arguments
+  <destination>  Where to save everything  (default: process.cwd())
 
-    --commonName, -CN             OpenSSL `commonName` subject entry*
-    --countryName, -C             OpenSSL `countryName` subject entry*
-    --stateOrProvinceName, -ST    OpenSSL `stateOrProvinceName` subject entry*
-    --localityName, -L            OpenSSL `localityName` subject entry*
-    --organizationName, -O        OpenSSL `organizationName` subject entry*
-    --organizationalUnit, -OU     OpenSSL `organizationalUnit` subject entry
-    --emailAddress                OpenSSL `emailAddress` subject entry
+Options
+  --filename, -f        The name of the file which gets generated   (default: ssl)
+  --addToKeychain, -k   Add your generated key file to Keychain     (default: false)
+  --removeOld, -r       Remove your old key from Keychain           (default: false)
+  --keychain, -k        Select a keychain                           (default: login)
+  --config              Path to config file or false to disable     (default: .)
+  --dns                 DNS entries split by a comma.               (default: null)
 
-  Examples
-    $ webssl /Users/Hi/Downloads \
-        --dns some.net,test.de \
-        --commonName Test
+  --commonName, -CN             OpenSSL `commonName` subject entry*
+  --countryName, -C             OpenSSL `countryName` subject entry*
+  --stateOrProvinceName, -ST    OpenSSL `stateOrProvinceName` subject entry*
+  --localityName, -L            OpenSSL `localityName` subject entry*
+  --organizationName, -O        OpenSSL `organizationName` subject entry*
+  --organizationalUnit, -OU     OpenSSL `organizationalUnit` subject entry
+  --emailAddress                OpenSSL `emailAddress` subject entry
 
-  * this is required
+Examples
+  $ webssl /Users/Hi/Downloads \
+      --dns some.net,test.de \
+      --commonName Test
+
+* this is required unless you do not have it in a config file
 ```
 
 > ⚠️ If you enable to add your certificate to macOS Keychain it will be
 > automatically set to `allow all`.
 
-> **Tip:** use a readable name for `commonName`, so it will be easier to find in
-> you macOS Keychain. The URL to your website will be handled via the `cdn`
-> option, e.g. `mycompany.web` and `mycompany.api`.
+> **Tip:** use a readable name for `commonName` (e.g. _my-project_), so it will
+> be easier to find in you macOS Keychain. The URL to your website will be
+> handled via the `cdn` option.
 
 ### Programmatically
 
@@ -87,6 +102,7 @@ Here is an example `openssl.ini`:
 ```ini
 filename=test
 destination=./_out
+keychain=development
 
 # this section will be converted to an array
 [dns]
@@ -105,3 +121,5 @@ organizationalUnit=Development
 ## Future
 
 - Add to [GitHub Package Registry](https://github.com/features/package-registry)
+
+[1]: https://de.wikipedia.org/wiki/OpenSSL

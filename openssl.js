@@ -28,8 +28,9 @@ const explorer = cosmiconfig('openssl', {
 
 class OpenSSL {
   constructor(customCnf) {
+    this.cwd = process.cwd()
     let config = {}
-    let pathToConfig = process.cwd()
+    let pathToConfig = this.cwd
     if (customCnf.config && fs.existsSync(customCnf.config)) {
       pathToConfig = customCnf.config
     }
@@ -38,7 +39,6 @@ class OpenSSL {
       config = explored ? explored.config : {}
     }
     const defaults = {
-      destination: process.cwd(),
       bits: 2048,
       filename: 'openssl',
       addToKeychain: false,
@@ -48,25 +48,28 @@ class OpenSSL {
     this.cnf = { ...defaults, ...customCnf, ...config }
 
     this.args = []
-    this.dest = this.cnf.destination.startsWith('/')
-      ? this.cnf.destination
-      : path.resolve(process.cwd(), this.cnf.destination)
-    this.cnfPath = path.resolve(this.dest, 'conf.ini')
+
+    this.outDir = this.cnf.outDir.startsWith('/')
+      ? this.cnf.outDir
+      : path.resolve(this.cwd, this.cnf.outDir)
+    this.sslDir = this.cnf.sslDir.startsWith('/')
+      ? this.cnf.sslDir
+      : path.resolve(this.cwd, this.cnf.sslDir)
+    this.cnfPath = path.resolve(this.sslDir, 'conf.ini')
 
     const filename = this.cnf.filename || this.cnf.openssl.commonName
-    this.keyPath = path.resolve(this.dest, `${filename}.key`)
-    this.certPath = path.resolve(this.dest, `${filename}.crt`)
+    this.keyPath = path.resolve(this.outDir, `${filename}.key`)
+    this.certPath = path.resolve(this.outDir, `${filename}.crt`)
 
-    console.log('Options')
+    console.log('Options:')
     console.log(this.cnf)
-    console.log(this.dest)
-    console.log(this.cnfPath)
-    console.log(this.keyPath)
-    console.log(this.certPath)
+    console.log() // line-break
+    console.log('outDir: ', this.outDir)
+    console.log('sslDir: ', this.sslDir)
     console.log() // line-break
   }
 
-  async create() {
+  async generate() {
     this.spinner = ora()
 
     await this.setArgs()
@@ -109,7 +112,7 @@ class OpenSSL {
     } else {
       this.spinner.fail()
       console.log('No keychain found for your user!')
-      process.exit(0)
+      process.exit(1)
     }
 
     // 3. find cert with same name
@@ -128,7 +131,7 @@ class OpenSSL {
         )
         if (!successful) {
           this.spinner.fail()
-          process.exit(0)
+          process.exit(1)
         }
         this.spinner.succeed()
       } else {
@@ -148,7 +151,7 @@ class OpenSSL {
     const successful = await keychain.add(this.certPath, keychainPath)
     if (!successful) {
       this.spinner.fail()
-      process.exit(0)
+      process.exit(1)
     } else {
       this.spinner.succeed()
     }
@@ -158,7 +161,7 @@ class OpenSSL {
   }
 
   addArg(arg, val = null) {
-    this.spinner.start(`Creating arg: ${arg}`)
+    this.spinner.start(`Pushing arg: ${arg} -> ${val}`)
     if (val) this.args.push(`-${arg}`, val)
     else this.args.push(`-${arg}`)
     this.spinner.succeed()

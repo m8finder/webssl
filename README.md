@@ -11,7 +11,6 @@ work!
   - [Programmatically](#programmatically)
 - [Options](#options)
   - [Example](#example)
-- [Future](#future)
 
 ## Install
 
@@ -22,41 +21,52 @@ work!
 
 > We recommend to create a new keychain `development` where you save all
 > certificates that has something todo with projects you are currently
-> developing in.
+> developing.
 
 ### Command Line
 
 ```shell
-Simply create OpenSSL certificates for development use locally on your computer
+  Simply create OpenSSL certificates for your local development
 
-Usage
-  $ webssl <destination> [flags]
+  Usage
+    $ webssl [flags] <out_dir> <ssl_dir>
 
-Arguments
-  <destination>  Absolute (starting with a slash) or relative path to a folder  (default: process.cwd())
+  Arguments
+    <out_dir>   Where to save all files          (default: /Current/Folder)*
+    <ssl_dir>   Path to cert, key and conf.ini   (default: <out_dir>)
 
-Options
-  --filename, -f        The name of the file which gets generated   (default: ssl)
-  --addToKeychain, -k   Add your generated key file to Keychain     (default: false)
-  --removeOld, -r       Remove your old key from Keychain           (default: false)
-  --keychain, -k        Select a keychain                           (default: login)
-  --config              Path to config file or false to disable     (default: .)
-  --dns                 DNS entries split by a comma.               (default: null)
+    In a Docker container e.g. the 'ssl_dir' differs from the 'out_dir' because
+    you save the files in 'out_dir' but inside the container the files are in
+    a different location.
 
-  --commonName, -CN             OpenSSL `commonName` subject entry*
-  --countryName, -C             OpenSSL `countryName` subject entry*
-  --stateOrProvinceName, -ST    OpenSSL `stateOrProvinceName` subject entry*
-  --localityName, -L            OpenSSL `localityName` subject entry*
-  --organizationName, -O        OpenSSL `organizationName` subject entry*
-  --organizationalUnit, -OU     OpenSSL `organizationalUnit` subject entry
-  --emailAddress                OpenSSL `emailAddress` subject entry
+    Path can be absolute (starting with a slash) or relative. Relative path
+    will be resolved with the folder you are executing this script from.
 
-Examples
-  $ webssl /Users/Hi/Downloads \
-      --dns some.net,test.de \
-      --commonName Test
+  Options
+    --filename, -f        The name of the file which gets generated   (default: ssl)
+    --addToKeychain, -a   Add your generated key file to Keychain     (default: false)
+    --removeOld, -r       Remove your old key from Keychain           (default: false)
+    --keychain, -k        Select a keychain                           (default: login)
+    --config, -c          Path to config file or false to disable     (default: ./)
+    --dns                 DNS entries split by a comma.               (default: null)
 
-* this is required unless you do not have it in a config file
+    --commonName, -CN            OpenSSL `commonName` subject entry*
+    --countryName, -C            OpenSSL `countryName` subject entry*
+    --stateOrProvinceName, -ST   OpenSSL `stateOrProvinceName` subject entry*
+    --localityName, -L           OpenSSL `localityName` subject entry*
+    --organizationName, -O       OpenSSL `organizationName` subject entry*
+    --organizationalUnit, -OU    OpenSSL `organizationalUnit` subject entry
+    --emailAddress               OpenSSL `emailAddress` subject entry
+
+  Examples
+    $ webssl \
+        --addToKeychain \
+        --keychain development \
+        --dns some.net,test.de \
+        --commonName Test \
+        /Users/Hi/Downloads
+
+  * this is required unless you do not have it in a config file
 ```
 
 > ⚠️ If you enable to add your certificate to macOS Keychain it will be
@@ -75,7 +85,7 @@ const WebSSL = require('openssl-web-development')
 const options = {}
 
 const webssl = new WebSSL(options)
-webssl.create()
+webssl.generate()
 ```
 
 ## Options
@@ -101,26 +111,23 @@ for:
 Here is an example `openssl.ini`:
 
 ```ini
-filename=test
-destination=./_out
+filename=openssl
 keychain=development
+outDir=certs
+sslDir=/etc/apache2/ssl
 
-# this section will be converted to an array
 [dns]
-test.lcl
-test.com
+openssl.lcl
+open-ssl.lcl
+openssl.net
 
 [openssl]
-commonName=test.web
+commonName=openssl-website
 countryName=DE
 stateOrProvinceName=Hessen
 localityName=Frankfurt am Main
-organizationName=Test
+organizationName=WebSSL
 organizationalUnit=Development
 ```
-
-## Future
-
-- Add to [GitHub Package Registry](https://github.com/features/package-registry)
 
 [1]: https://de.wikipedia.org/wiki/OpenSSL

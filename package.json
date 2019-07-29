@@ -23,7 +23,7 @@
   },
   "main": "./openssl.js",
   "scripts": {
-    "test-cli": "cd test/ && node ../cli.js ./_out",
+    "test-cli": "node ./cli.js -c ./test/",
     "test": "eslint",
     "help": "node cli.js --help"
   },

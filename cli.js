@@ -10,31 +10,42 @@ const WebSSL = require('./openssl')
 const cli = meow(
   `
   ${chalk.blue('Usage')}
-    $ webssl <destination> [flags]
+    $ webssl [flags] <out_dir> <ssl_dir>
 
   ${chalk.blue('Arguments')}
-    <destination>  Absolute (starting with a slash) or relative path to a folder  (default: ${chalk.yellow('process.cwd()')})
+    <out_dir>   Where to save all files          (default: ${chalk.yellow('/Current/Folder')})*
+    <ssl_dir>   Path to cert, key and conf.ini   (default: ${chalk.yellow('<out_dir>')})
+
+    In a Docker container e.g. the 'ssl_dir' differs from the 'out_dir' because
+    you save the files in 'out_dir' but inside the container the files are in
+    a different location.
+
+    Path can be absolute (starting with a slash) or relative. Relative path
+    will be resolved with the folder you are executing this script from.
 
   ${chalk.blue('Options')}
     --filename, -f        The name of the file which gets generated   (default: ${chalk.yellow('ssl')})
     --addToKeychain, -a   Add your generated key file to Keychain     (default: ${chalk.yellow('false')})
     --removeOld, -r       Remove your old key from Keychain           (default: ${chalk.yellow('false')})
     --keychain, -k        Select a keychain                           (default: ${chalk.yellow('login')})
-    --config              Path to config file or false to disable     (default: ${chalk.yellow('.')})
+    --config, -c          Path to config file or false to disable     (default: ${chalk.yellow('./')})
     --dns                 DNS entries split by a comma.               (default: ${chalk.yellow('null')})
 
-    --commonName, -CN             OpenSSL \`commonName\` subject entry${chalk.red('*')}
-    --countryName, -C             OpenSSL \`countryName\` subject entry${chalk.red('*')}
-    --stateOrProvinceName, -ST    OpenSSL \`stateOrProvinceName\` subject entry${chalk.red('*')}
-    --localityName, -L            OpenSSL \`localityName\` subject entry${chalk.red('*')}
-    --organizationName, -O        OpenSSL \`organizationName\` subject entry${chalk.red('*')}
-    --organizationalUnit, -OU     OpenSSL \`organizationalUnit\` subject entry
-    --emailAddress                OpenSSL \`emailAddress\` subject entry
+    --commonName, -CN            OpenSSL \`commonName\` subject entry${chalk.red('*')}
+    --countryName, -C            OpenSSL \`countryName\` subject entry${chalk.red('*')}
+    --stateOrProvinceName, -ST   OpenSSL \`stateOrProvinceName\` subject entry${chalk.red('*')}
+    --localityName, -L           OpenSSL \`localityName\` subject entry${chalk.red('*')}
+    --organizationName, -O       OpenSSL \`organizationName\` subject entry${chalk.red('*')}
+    --organizationalUnit, -OU    OpenSSL \`organizationalUnit\` subject entry
+    --emailAddress               OpenSSL \`emailAddress\` subject entry
 
   ${chalk.blue('Examples')}
-    $ webssl /Users/Hi/Downloads \\
+    $ webssl \\
+        --addToKeychain \\
+        --keychain development \\
         --dns some.net,test.de \\
-        --commonName Test
+        --commonName Test \\
+        /Users/Hi/Downloads
 
   ${chalk.red('*')} this is required unless you do not have it in a config file
 `,
@@ -47,6 +58,7 @@ const cli = meow(
       },
       config: {
         type: 'string',
+        alias: 'c',
       },
       dns: {
         type: 'string',
@@ -132,7 +144,8 @@ const options = {
   },
 }
 
-options.destination = cli.input[0] || process.cwd()
+options.outDir = cli.input[0] || process.cwd()
+options.sslDir = cli.input[1] || options.outDir
 
 const webssl = new WebSSL(options)
-// webssl.create()
+webssl.generate()

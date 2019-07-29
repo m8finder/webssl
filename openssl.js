@@ -38,17 +38,19 @@ class OpenSSL {
       config = explored ? explored.config : {}
     }
     const defaults = {
+      destination: process.cwd(),
       bits: 2048,
       filename: 'openssl',
       addToKeychain: false,
       removeOld: false,
       keychain: 'login',
     }
-    // TODO: allow better deep merge
     this.cnf = { ...defaults, ...customCnf, ...config }
 
     this.args = []
-    this.dest = path.resolve(process.cwd(), this.cnf.destination)
+    this.dest = this.cnf.destination.startsWith('/')
+      ? this.cnf.destination
+      : path.resolve(process.cwd(), this.cnf.destination)
     this.cnfPath = path.resolve(this.dest, 'conf.ini')
 
     const filename = this.cnf.filename || this.cnf.openssl.commonName
@@ -57,14 +59,16 @@ class OpenSSL {
 
     console.log('Options')
     console.log(this.cnf)
+    console.log(this.dest)
+    console.log(this.cnfPath)
+    console.log(this.keyPath)
+    console.log(this.certPath)
     console.log() // line-break
-
-    this.spinner = ora()
-
-    this.run()
   }
 
-  async run() {
+  async create() {
+    this.spinner = ora()
+
     await this.setArgs()
     await this.writeConfig()
 

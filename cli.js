@@ -13,7 +13,7 @@ const cli = meow(
     $ webssl <destination> [flags]
 
   ${chalk.blue('Arguments')}
-    <destination>  Where to save everything  (default: ${chalk.yellow('process.cwd()')})
+    <destination>  Absolute (starting with a slash) or relative path to a folder  (default: ${chalk.yellow('process.cwd()')})
 
   ${chalk.blue('Options')}
     --filename, -f        The name of the file which gets generated   (default: ${chalk.yellow('ssl')})
@@ -134,4 +134,5 @@ const options = {
 
 options.destination = cli.input[0] || process.cwd()
 
-new WebSSL(options)
+const webssl = new WebSSL(options)
+// webssl.create()

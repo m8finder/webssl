@@ -33,7 +33,7 @@ Usage
   $ webssl <destination> [flags]
 
 Arguments
-  <destination>  Where to save everything  (default: process.cwd())
+  <destination>  Absolute (starting with a slash) or relative path to a folder  (default: process.cwd())
 
 Options
   --filename, -f        The name of the file which gets generated   (default: ssl)
@@ -74,7 +74,8 @@ See [cli.js](./cli.js)
 const WebSSL = require('openssl-web-development')
 const options = {}
 
-new WebSSL(options)
+const webssl = new WebSSL(options)
+webssl.create()
 ```
 
 ## Options

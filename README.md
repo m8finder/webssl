@@ -1,128 +1,82 @@
-# OpenSSL Web Development
+<h1 align="center">
+  <img width="340" src="https://upload.wikimedia.org/wikipedia/commons/a/a1/OpenSSL_logo.png" />
+  <br><br><p><b>WebSSL – OpenSSL for web and mobile development</b></p>
+</h1>
 
-[![npm](https://img.shields.io/npm/v/openssl-web-development.svg?style=for-the-badge)](https://www.npmjs.com/package/openssl-web-development)
+Simply create [OpenSSL](https://de.wikipedia.org/wiki/OpenSSL) certificates for your local
+web or mobile development that just work!
 
-Simply create [OpenSSL][1] certificates for your local development that just
-work!
+## Installation
 
-- [Install](#install)
-- [How to use](#how-to-use)
-  - [Command Line](#command-line)
-  - [Programmatically](#programmatically)
-- [Options](#options)
-  - [Example](#example)
-
-## Install
-
-- Globally: `npm install -g openssl-web-development`
-- Locally: `npm install --save-dev openssl-web-development`
-
-## How to use
-
-> We recommend to create a new keychain `development` where you save all
-> certificates that has something todo with projects you are currently
-> developing.
-
-### Command Line
+> Requires [Deno](https://deno.land/)
 
 ```shell
-  Simply create OpenSSL certificates for your local development
-
-  Usage
-    $ webssl [flags] <out_dir>
-
-  Arguments
-    <out_dir>   Where to save all files          (default: /Current/Folder)*
-
-    Path can be absolute (starting with a slash) or relative. Relative path
-    will be resolved with the folder you are executing this script from.
-
-  Options
-    --filename, -f        The name of the file which gets generated   (default: ssl)
-    --addToKeychain, -a   Add your generated key file to Keychain     (default: false)
-    --removeOld, -r       Remove your old key from Keychain           (default: false)
-    --keychain, -k        Select a keychain                           (default: login)
-    --config, -c          Path to config file or false to disable     (default: ./)
-    --dns                 DNS entries split by a comma.               (default: null)
-
-    --commonName, -CN            OpenSSL `commonName` subject entry*
-    --countryName, -C            OpenSSL `countryName` subject entry*
-    --stateOrProvinceName, -ST   OpenSSL `stateOrProvinceName` subject entry*
-    --localityName, -L           OpenSSL `localityName` subject entry*
-    --organizationName, -O       OpenSSL `organizationName` subject entry*
-    --organizationalUnit, -OU    OpenSSL `organizationalUnit` subject entry
-    --emailAddress               OpenSSL `emailAddress` subject entry
-
-  Examples
-    $ webssl \
-        --addToKeychain \
-        --keychain development \
-        --dns some.net,test.de \
-        --commonName Test \
-        /Users/Hi/Downloads
-
-  * this is required unless you do not have it in a config file
+deno install --allow-read --allow-write --allow-run --name webssl https://deno.land/x/webssl/cli.ts
 ```
 
-> ⚠️ If you enable to add your certificate to macOS Keychain it will be
-> automatically set to `allow all`.
+| Flag            | Explanation                       |
+| --------------- | --------------------------------- |
+| `--allow-read`  | To read written certificate parts |
+| `--allow-write` | To write certificate parts        |
+| `--allow-run`   | To run the `openssl` command      |
 
-> **Tip:** use a readable name for `commonName` (e.g. _my-project_), so it will
-> be easier to find in you macOS Keychain. The URL to your website will be
-> handled via the `cdn` option.
+## Usage
 
-### Programmatically
-
-See [cli.js](./cli.js)
-
-```js
-const WebSSL = require('openssl-web-development')
-const options = {}
-
-const webssl = new WebSSL(options)
-webssl.generate()
+```shell
+webssl [options] <destination>
+webssl --filename dev_cert
 ```
 
-## Options
+> The default destination is `certs`. To override it just prepend a
+> path (relative or absolute) to the command but make sure it is not following any option flag.
 
-You can also save any parameters to an configuration file. We use cosmiconfig to
-parse them but our search places differ a bit. Here is a list what we search
-for:
+### Options
 
-- openssl.config.js
-- openssl.ini
-- .openssl
-- .openssl.yaml
-- webssl.config.js
-- webssl.ini
-- .webssl
-- .webssl.yaml
-- package.json
+| Option       | Description                     | Default       |
+| ------------ | ------------------------------- | ------------- |
+| `--help`     | prints this help message        | /             |
+| `--debug`    | print some debuggin information | /             |
+| `--config`   | path to a custom config toml    | `webssl.toml` |
+| `--filename` | the generated files filename    | dev           |
 
-> If you going to use a configuration file, all CLI options will be ignored!
+### Config
 
-### Example
+The configuration is written in toml. [Read more about toml](https://github.com/toml-lang/toml)
 
-Here is an example `openssl.ini`:
+Example `webssl.toml` file:
 
-```ini
-filename=openssl
-keychain=development
-outDir=certs
-sslDir=/etc/apache2/ssl
+```toml
+filename="dev"
+destination="certs"
 
-[dns]
-openssl.lcl
-open-ssl.lcl
-openssl.net
+domains = [
+  "example.dev",
+  "api.example.dev"
+]
 
-[openssl]
-commonName=openssl-website
-countryName=DE
-stateOrProvinceName=Hessen
-localityName=Frankfurt am Main
-organizationName=WebSSL
-organizationalUnit=Development
+commonName              = "com.github.webssl"
+countryName             = "DE"
+stateOrProvinceName     = "Germany"
+localityName            = "Frankfurt am Main"
+organizationName        = "WebSSL"
+organizationalUnitName  = "Development"
+emailAddress            = "mail@example.com"
 ```
 
-[1]: https://de.wikipedia.org/wiki/OpenSSL
+## Tips
+
+If you work on a Mac, I recommend you to create a new keychain called `development` where you save all certificates that are unsafe.
+
+## Todo
+
+- [ ] write more tests
+- [ ] add to deno `x` third-party modules list
+- [ ] create single executable
+  - [ ] curl shell script to add single executable to users bin
+- [ ] make it available in:
+  - [ ] npm
+  - [ ] brew
+
+---
+
+#### This is not affiliated with OpenSSL. OpenSSL and the above logo is a registered trademark owned by OpenSSL Software Foundation.

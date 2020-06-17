@@ -1,0 +1,15 @@
+filename="dev"
+destination="certs"
+
+domains = [
+  "ssl.de",
+  "ssl.com"
+]
+
+commonName              = "com.github.webssl"
+countryName             = "DE"
+stateOrProvinceName     = "Germany"
+localityName            = "Frankfurt am Main"
+organizationName        = "WebSSL"
+organizationalUnitName  = "Development"
+emailAddress            = "mail@example.com"

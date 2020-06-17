@@ -11,7 +11,7 @@ web or mobile development that just work!
 > Requires [Deno](https://deno.land/)
 
 ```shell
-deno install --allow-read --allow-write --allow-run --name webssl https://deno.land/x/webssl/cli.ts
+deno install --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/master/cli.ts
 ```
 
 | Flag            | Explanation                       |

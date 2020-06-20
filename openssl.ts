@@ -6,10 +6,9 @@ import {
   validate,
   firstMessages,
   Rule,
-  validateArray,
-  OptionalValue
-} from 'https://deno.land/x/validasaur@v0.7.0/src/mod.ts'
-import * as Valid from 'https://deno.land/x/validasaur@v0.7.0/src/rules.ts'
+  validateArray
+} from 'https://deno.land/x/validasaur@v0.7.2/src/mod.ts'
+import * as Valid from 'https://deno.land/x/validasaur@v0.7.2/src/rules.ts'
 
 import { runCommand } from './utils.ts'
 
@@ -90,7 +89,7 @@ export class OpenSSL {
     const scheme: Record<keyof OpenSSLConfig, Rule | Rule[]> = {
       filename: [Valid.required, Valid.isString],
       destination: [Valid.required, Valid.isString],
-      domains: validateArray(true, [Valid.isString, Valid.notNull]),
+      domains: validateArray(true, [Valid.isString], { minLength: 1 }),
       commonName: [Valid.required, Valid.isString],
       countryName: [Valid.required, Valid.isString],
       stateOrProvinceName: [Valid.required, Valid.isString],

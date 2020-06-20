@@ -20,6 +20,16 @@ deno install --allow-read --allow-write --allow-run --name webssl https://raw.gi
 | `--allow-write` | To write certificate parts        |
 | `--allow-run`   | To run the `openssl` command      |
 
+### Extra security?
+
+Use [Nest](https://nest.land/) to securely install this package using blockchain.
+
+[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/webssl)
+
+```
+deno install --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.0.1/cli.ts
+```
+
 ## Usage
 
 ```shell

@@ -172,7 +172,8 @@ emailAddress                = ${this.config.emailAddress}
 
 [ req_extensions_section ]
 
-subjectAltName = @subject_alternative_name_section
+basicConstraints    = critical,CA:TRUE,pathlen:1
+subjectAltName      = @subject_alternative_name_section
 
 [ subject_alternative_name_section ]
 

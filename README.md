@@ -27,7 +27,7 @@ Use [Nest](https://nest.land/) to securely install this package using blockchain
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/webssl)
 
 ```
-deno install --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.0.1/cli.ts
+deno install --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.1.0/cli.ts
 ```
 
 ## Usage

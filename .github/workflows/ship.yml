@@ -1,0 +1,26 @@
+name: Ship and release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  ship:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denolib/setup-deno@v2
+
+      - name: Set version
+        id: version
+        run: echo "::set-output name=version::$(deno run -A cli.ts --version)"
+
+      - name: Publish module
+        run: |
+          deno install -Afq --unstable https://x.nest.land/eggs@0.3.2/eggs.ts
+          eggs link ${{ secrets.NESTAPIKEY }}
+          eggs publish --version ${{ steps.version.outputs.version }}

@@ -1,15 +1,17 @@
-name: Ship and release
+name: Release
 
 on:
   push:
-    branches:
-      - master
     tags:
       - "v*"
 
 jobs:
-  ship:
+  lint:
+    name: deno lint
+
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+
     steps:
       - name: Setup repo
         uses: actions/checkout@v2
@@ -17,18 +19,29 @@ jobs:
       - name: Setup Deno
         uses: denolib/setup-deno@v2
 
-      - name: Set version
-        id: version
-        run: echo "::set-output name=version::$(deno run -A cli.ts --version)"
+      - name: Run linter
+        run: deno lint --unstable
 
-      - name: Check tag vs local version
-        run: if [[ "${{ steps.version.outputs.version }}" != "${{ github.ref }}" ]] exit 1;
+  test:
+    name: Deno Stable
 
-      - name: Publish module
-        run: |
-          deno install -Afq --unstable https://x.nest.land/eggs@0.3.2/eggs.ts
-          eggs link ${{ secrets.NESTAPIKEY }}
-          eggs publish --version ${{ steps.version.outputs.version }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macOS-latest, windows-latest, ubuntu-latest]
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denolib/setup-deno@v2
+
+      - name: Run tests
+        run: deno test --allow-all --unstable
 
   release:
     runs-on: ubuntu-latest

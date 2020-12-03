@@ -1,6 +1,15 @@
 ##  (2020-12-03)
 
+* chore: bump version ([d8a864e](https://github.com/m8finder/webssl/commit/d8a864e))
+* feat: add license ([2929d7a](https://github.com/m8finder/webssl/commit/2929d7a))
+* feat: remove v from shipped version string ([a482661](https://github.com/m8finder/webssl/commit/a482661))
+
+
+
+## <small>3.3.4 (2020-12-03)</small>
+
 * chore: bump version ([91d5d0f](https://github.com/m8finder/webssl/commit/91d5d0f))
+* chore: update changelog ([2f68488](https://github.com/m8finder/webssl/commit/2f68488))
 * feat: display latest changelog and only latest version ([447c584](https://github.com/m8finder/webssl/commit/447c584))
 * feat: update egg config ([96f4f13](https://github.com/m8finder/webssl/commit/96f4f13))
 * fix: maybe fix for ship ([da589da](https://github.com/m8finder/webssl/commit/da589da))

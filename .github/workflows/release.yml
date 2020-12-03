@@ -55,7 +55,9 @@ jobs:
         uses: actions/setup-node@v1
 
       - name: Create latest changelog
-        run: npx conventional-changelog-cli -u false -o latest-changelog.md -u false
+        run: |
+          npx conventional-changelog-cli -r 1 -o latest-changelog.md
+          cat latest-changelog.md
 
       - name: Create a Release
         uses: actions/create-release@v1

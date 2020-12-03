@@ -1,5 +1,15 @@
 ##  (2020-12-03)
 
+* chore: bump version ([91d5d0f](https://github.com/m8finder/webssl/commit/91d5d0f))
+* feat: display latest changelog and only latest version ([447c584](https://github.com/m8finder/webssl/commit/447c584))
+* feat: update egg config ([96f4f13](https://github.com/m8finder/webssl/commit/96f4f13))
+* fix: maybe fix for ship ([da589da](https://github.com/m8finder/webssl/commit/da589da))
+
+
+
+## <small>3.3.3 (2020-12-03)</small>
+
+* chore: update changelog ([68c486b](https://github.com/m8finder/webssl/commit/68c486b))
 * feat: add names ([38702a6](https://github.com/m8finder/webssl/commit/38702a6))
 * feat: bump version ([48af1f0](https://github.com/m8finder/webssl/commit/48af1f0))
 * fix: use personal github token to force release ci event ([c0b48b4](https://github.com/m8finder/webssl/commit/c0b48b4))

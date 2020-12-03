@@ -1,5 +1,20 @@
 ##  (2020-12-03)
 
+* feat: add badges to readme ([84bf326](https://github.com/m8finder/webssl/commit/84bf326))
+* feat: add default ignores ([eede281](https://github.com/m8finder/webssl/commit/eede281))
+* feat: add version increase note ([e1329a0](https://github.com/m8finder/webssl/commit/e1329a0))
+* feat: bump version to 3.2.0 ([f07e052](https://github.com/m8finder/webssl/commit/f07e052))
+* feat: improve ci ([4dc3727](https://github.com/m8finder/webssl/commit/4dc3727))
+* feat: use deno fmt and update vscode settings ([6208e82](https://github.com/m8finder/webssl/commit/6208e82))
+* chore: rename master to main ([5bbc978](https://github.com/m8finder/webssl/commit/5bbc978))
+* fix: release did not run ([f119b29](https://github.com/m8finder/webssl/commit/f119b29))
+* fix: windows async ops ([dcdfded](https://github.com/m8finder/webssl/commit/dcdfded))
+* fix: workflow naming ([286669b](https://github.com/m8finder/webssl/commit/286669b))
+
+
+
+##  (2020-12-03)
+
 * feat: run lint and test before release ([af704d5](https://github.com/m8finder/webssl/commit/af704d5))
 * feat: update release ci ([86b2905](https://github.com/m8finder/webssl/commit/86b2905))
 * fix: lint errors ([6426923](https://github.com/m8finder/webssl/commit/6426923))

@@ -3,22 +3,31 @@
   <br><br><p><b>WebSSL – OpenSSL for web and mobile development</b></p>
 </h1>
 
-Simply create [OpenSSL](https://de.wikipedia.org/wiki/OpenSSL) certificates for your local
-web or mobile development that just work!
+Simply create [OpenSSL](https://de.wikipedia.org/wiki/OpenSSL) certificates for your local web or
+mobile development that just work!
+
+- [Installation](#installation)
+  - [Extra security?](#extra-security)
+- [Usage](#usage)
+  - [Options](#options)
+  - [Config](#config)
+- [Tips](#tips)
+- [Development](#development)
+- [Ideas](#ideas)
 
 ## Installation
 
 > Requires [Deno](https://deno.land/)
 
 ```shell
-deno install --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/master/cli.ts
+deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/master/cli.ts
 ```
 
-| Flag            | Explanation                       |
-| --------------- | --------------------------------- |
-| `--allow-read`  | To read written certificate parts |
-| `--allow-write` | To write certificate parts        |
-| `--allow-run`   | To run the `openssl` command      |
+| Flag            | Explanation                                       |
+| --------------- | ------------------------------------------------- |
+| `--allow-read`  | To read written certificate parts and your config |
+| `--allow-write` | To write certificate parts                        |
+| `--allow-run`   | To run the `openssl` command                      |
 
 ### Extra security?
 
@@ -27,7 +36,7 @@ Use [Nest](https://nest.land/) to securely install this package using blockchain
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/webssl)
 
 ```
-deno install --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.1.0/cli.ts
+deno install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.1.0/cli.ts
 ```
 
 ## Usage
@@ -37,8 +46,8 @@ webssl [options] <destination>
 webssl --filename dev_cert
 ```
 
-> The default destination is `certs`. To override it just prepend a
-> path (relative or absolute) to the command but make sure it is not following any option flag.
+> The default destination is `certs`. To override it just prepend a path (relative or absolute) to
+> the command but make sure it is not following any option flag.
 
 ### Options
 
@@ -64,6 +73,10 @@ domains = [
   "api.example.dev"
 ]
 
+ips = [
+  "142.24.51.122"
+]
+
 commonName              = "com.github.webssl"
 countryName             = "DE"
 stateOrProvinceName     = "Germany"
@@ -75,9 +88,22 @@ emailAddress            = "mail@example.com"
 
 ## Tips
 
-If you work on a Mac, I recommend you to create a new keychain called `development` where you save all certificates that are unsafe.
+If you work on a Mac, I recommend you to create a new keychain called `development` where you save
+all certificates that are unsafe or only for the purpose of development.
 
-## Todo
+## Development
+
+Please run `make setup` before starting any development.
+
+Install globally with the following command:
+
+```
+make install
+```
+
+> For more commands read the [Makefile](./Makefile).
+
+## Ideas
 
 - [ ] write more tests
 - [ ] add to deno `x` third-party modules list
@@ -89,4 +115,5 @@ If you work on a Mac, I recommend you to create a new keychain called `developme
 
 ---
 
-#### This is not affiliated with OpenSSL. OpenSSL and the above logo is a registered trademark owned by OpenSSL Software Foundation.
+> This is not affiliated with OpenSSL. OpenSSL and the above logo is a registered trademark owned by
+> OpenSSL Software Foundation.

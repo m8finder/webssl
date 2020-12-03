@@ -26,9 +26,9 @@ setup:
 release:
 	@echo "Release preparation started..."
 	@echo "Did you increased the version in pkg.ts and egg.json? [y/N] " && read ans && [ $${ans:-N} = y ]
+	@echo "Creating latest changelogs"
+	npx conventional-changelog-cli -t v -i CHANGELOG.md -s -r 1
+	git add CHANGELOG.md && git commit -m "chore: update changelog"
 	@echo "Tagging release to v$(VERSION)"
 	git tag -am "New release on v$(VERSION)" v$(VERSION)
-	@echo "Creating latest changelogs"
-	npx conventional-changelog-cli -t v -i CHANGELOG.md -s -r 0 -u false
-	git add CHANGELOG.md && git commit -m "chore: update changelog"
 	@echo "Now run 'git push --follow-tags origin <your_branch_name>'"

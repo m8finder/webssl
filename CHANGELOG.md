@@ -1,5 +1,9 @@
 ##  (2020-12-03)
 
+* feat: bump version ([8baff32](https://github.com/m8finder/webssl/commit/8baff32))
+* feat: ci ignore v tags on test and lint ([2d51c59](https://github.com/m8finder/webssl/commit/2d51c59))
+* fix: changelog generation is a little broken ([8805580](https://github.com/m8finder/webssl/commit/8805580))
+* fix: unable to find node version lts ([7f8b6f4](https://github.com/m8finder/webssl/commit/7f8b6f4))
 
 
 

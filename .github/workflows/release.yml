@@ -1,4 +1,4 @@
-name: Release and ship
+name: Ship and release
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - "v*"
 
 jobs:
-  release:
+  ship:
     runs-on: ubuntu-latest
     steps:
       - name: Setup repo
@@ -16,8 +16,6 @@ jobs:
 
       - name: Setup Deno
         uses: denolib/setup-deno@v2
-        run: |
-          deno install -Afq --unstable https://x.nest.land/eggs@0.3.2/eggs.ts
 
       - name: Set version
         id: version
@@ -28,13 +26,24 @@ jobs:
 
       - name: Publish module
         run: |
+          deno install -Afq --unstable https://x.nest.land/eggs@0.3.2/eggs.ts
           eggs link ${{ secrets.NESTAPIKEY }}
           eggs publish --version ${{ steps.version.outputs.version }}
 
-      - name: Create latest changelog
+  release:
+    runs-on: ubuntu-latest
+    needs:
+      - ship
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: "lts"
+
+      - name: Create latest changelog
         run: npx conventional-changelog-cli -u false -o latest-changelog.md -u false
 
       - name: Create a Release

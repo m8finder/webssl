@@ -1,8 +1,8 @@
 <h1 align="center">
   <img width="340" src="https://upload.wikimedia.org/wikipedia/commons/a/a1/OpenSSL_logo.png" />
   <br><br><p><b>WebSSL – OpenSSL for web and mobile development</b></p>
-  <img src="https://github.com/m8finder/webssl/workflows/Test/badge.svg?branch=master" alt="CI Badge Test">
-  <img src="https://github.com/m8finder/webssl/workflows/Lint/badge.svg?branch=master" alt="CI Badge Lint">
+  <img src="https://github.com/m8finder/webssl/workflows/Test/badge.svg?branch=main" alt="CI Badge Test">
+  <img src="https://github.com/m8finder/webssl/workflows/Lint/badge.svg?branch=main" alt="CI Badge Lint">
 </h1>
 
 Simply create [OpenSSL](https://de.wikipedia.org/wiki/OpenSSL) certificates for
@@ -22,7 +22,7 @@ your local web or mobile development that just work!
 > Requires [Deno](https://deno.land/)
 
 ```shell
-deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/master/cli.ts
+deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/main/cli.ts
 ```
 
 | Flag            | Explanation                                       |

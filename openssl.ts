@@ -150,7 +150,7 @@ export class OpenSSL {
     }
   }
 
-  private async createExtensionConf() {
+  private createExtensionConf() {
     this.logger.info('Creating extension conf')
 
     let conf = `

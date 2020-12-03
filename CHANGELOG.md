@@ -1,29 +1,38 @@
 ##  (2020-12-03)
 
+
+
+
+## 3.3.0 (2020-12-03)
+
+* chore: rename master to main ([5bbc978](https://github.com/m8finder/webssl/commit/5bbc978))
+* chore: update changelog ([c6041b8](https://github.com/m8finder/webssl/commit/c6041b8))
 * feat: add badges to readme ([84bf326](https://github.com/m8finder/webssl/commit/84bf326))
 * feat: add default ignores ([eede281](https://github.com/m8finder/webssl/commit/eede281))
 * feat: add version increase note ([e1329a0](https://github.com/m8finder/webssl/commit/e1329a0))
 * feat: bump version to 3.2.0 ([f07e052](https://github.com/m8finder/webssl/commit/f07e052))
 * feat: improve ci ([4dc3727](https://github.com/m8finder/webssl/commit/4dc3727))
 * feat: use deno fmt and update vscode settings ([6208e82](https://github.com/m8finder/webssl/commit/6208e82))
-* chore: rename master to main ([5bbc978](https://github.com/m8finder/webssl/commit/5bbc978))
 * fix: release did not run ([f119b29](https://github.com/m8finder/webssl/commit/f119b29))
 * fix: windows async ops ([dcdfded](https://github.com/m8finder/webssl/commit/dcdfded))
 * fix: workflow naming ([286669b](https://github.com/m8finder/webssl/commit/286669b))
 
 
 
-##  (2020-12-03)
+## <small>3.2.1 (2020-12-03)</small>
 
+* chore: bump version ([302b5fe](https://github.com/m8finder/webssl/commit/302b5fe))
+* chore: update changelog ([2fa8551](https://github.com/m8finder/webssl/commit/2fa8551))
 * feat: run lint and test before release ([af704d5](https://github.com/m8finder/webssl/commit/af704d5))
 * feat: update release ci ([86b2905](https://github.com/m8finder/webssl/commit/86b2905))
 * fix: lint errors ([6426923](https://github.com/m8finder/webssl/commit/6426923))
-* chore: bump version ([302b5fe](https://github.com/m8finder/webssl/commit/302b5fe))
 
 
 
-##  (2020-12-03)
+## 3.2.0 (2020-12-03)
 
+* chore: update changelog ([4dddf4d](https://github.com/m8finder/webssl/commit/4dddf4d))
+* chore: update gitignore with latest changelog file ([b099c0e](https://github.com/m8finder/webssl/commit/b099c0e))
 * feat: add basic constraints for iOS development ([7f162e0](https://github.com/m8finder/webssl/commit/7f162e0))
 * feat: add lefthook ([ca3303b](https://github.com/m8finder/webssl/commit/ca3303b))
 * feat: add note for json import ([7a2ae34](https://github.com/m8finder/webssl/commit/7a2ae34))
@@ -38,21 +47,6 @@
 * feat: update install url ([3c399d3](https://github.com/m8finder/webssl/commit/3c399d3))
 * feat: update makefile with new setup and release targets ([0a774e1](https://github.com/m8finder/webssl/commit/0a774e1))
 * feat: update readme ([9903943](https://github.com/m8finder/webssl/commit/9903943))
-* chore: update gitignore with latest changelog file ([b099c0e](https://github.com/m8finder/webssl/commit/b099c0e))
-
-
-
-##  (2020-12-03)
-
-
-
-
-## 3.2.0 (2020-08-11)
-
-* feat: add basic constraints for iOS development ([7f162e0](https://github.com/m8finder/webssl/commit/7f162e0))
-* feat: add openssl config array validation min length ([f2b2d45](https://github.com/m8finder/webssl/commit/f2b2d45))
-* feat: add to nest registry ([a366066](https://github.com/m8finder/webssl/commit/a366066))
-* feat: update install url ([3c399d3](https://github.com/m8finder/webssl/commit/3c399d3))
 
 
 

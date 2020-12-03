@@ -1,0 +1,43 @@
+name: Release and ship
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denolib/setup-deno@v2
+
+      - name: Set version
+        id: version
+        run: echo "::set-output name=version::$(deno run -A cli.ts --version)"
+
+      - name: Check tag vs local version
+        run: if [[ "${{ steps.version.outputs.version }}" != "${{ github.ref }}" ]] exit 1;
+
+      - name: Publish module
+        run: |
+          deno run -A --unstable https://x.nest.land/eggs@0.2.1/mod.ts link ${{ secrets.NESTAPIKEY }}
+          deno run -A --unstable https://x.nest.land/eggs@0.2.1/mod.ts publish --version ${{ steps.version.outputs.version }}
+
+      - name: Create latest changelog
+        uses: actions/setup-node@v1
+        with:
+          node-version: "lts"
+        run: npx conventional-changelog-cli -r 1 -o latest-changelog.md
+
+      - name: Create a Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body_path: "./latest-changelog.md"

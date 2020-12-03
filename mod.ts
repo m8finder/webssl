@@ -16,7 +16,7 @@ export async function run(openSSLConfig: Partial<OpenSSLConfig>, runnerConfig: C
   try {
     fileConfig = await getFileConfig(runnerConfig.config)
   } catch (error) {
-    Deno.exit()
+    throw error
   }
 
   const defaultConfig: Partial<OpenSSLConfig> = {

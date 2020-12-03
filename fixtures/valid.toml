@@ -1,9 +1,13 @@
 filename="dev"
-destination="certs"
+destination="tmp"
 
 domains = [
   "ssl.de",
   "ssl.com"
+]
+
+ips = [
+  "142.24.51.122"
 ]
 
 commonName              = "com.github.webssl"

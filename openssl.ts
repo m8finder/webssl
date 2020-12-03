@@ -17,7 +17,8 @@ type Filenames = 'ini' | 'crt' | 'csr' | 'key' | 'p12'
 export interface OpenSSLConfig {
   filename: string
   destination: string
-  domains: string[]
+  domains?: string[]
+  ips?: string[]
 
   // OpenSSL
   commonName: string
@@ -74,7 +75,7 @@ export class OpenSSL {
   }
 
   getFiles<T extends Filenames>(keyArray: T[]): Record<T, string> {
-    let pathArray: Record<string, string> = {}
+    const pathArray: Record<string, string> = {}
 
     for (const key of keyArray) {
       pathArray[key] = join(this.config.destination, this.config.filename + '.' + key)
@@ -89,7 +90,8 @@ export class OpenSSL {
     const scheme: Record<keyof OpenSSLConfig, Rule | Rule[]> = {
       filename: [Valid.required, Valid.isString],
       destination: [Valid.required, Valid.isString],
-      domains: validateArray(true, [Valid.isString], { minLength: 1 }),
+      domains: validateArray(false, [Valid.isString], { minLength: 1 }),
+      ips: validateArray(false, [Valid.isString], { minLength: 1 }),
       commonName: [Valid.required, Valid.isString],
       countryName: [Valid.required, Valid.isString],
       stateOrProvinceName: [Valid.required, Valid.isString],
@@ -183,8 +185,16 @@ DNS.1   = localhost
       `.trim()
 
     // Add dns domains
-    const dnsMap = this.config.domains.map((d, i) => `DNS.${i + 2}   = ${d}`)
-    conf += '\n' + dnsMap.join('\n')
+    if (this.config.domains) {
+      const dnsMap = this.config.domains.map((d, i) => `DNS.${i + 2}   = ${d}`)
+      conf += '\n' + dnsMap.join('\n')
+    }
+
+    // Add ip addresses
+    if (this.config.ips) {
+      const ipMap = this.config.ips.map((d, i) => `IP.${i + 3}    = ${d}`)
+      conf += '\n' + ipMap.join('\n')
+    }
 
     this.logger.debug('Extension conf:\n' + conf)
 

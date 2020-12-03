@@ -4,6 +4,7 @@ import { parse } from 'https://deno.land/std/flags/mod.ts'
 import { setupLog } from './log.ts'
 import { OpenSSLConfig } from './openssl.ts'
 import { run } from './mod.ts'
+import { getPkg } from './pkg.ts'
 
 const LOGO = `
    _ _ _     _   _____ _____ __
@@ -29,6 +30,7 @@ const __HELP = `${LOGO}
     --debug           print some debuggin information
     --config          path to a custom config toml
     --filename        the generated files filename
+    --version         print the program version
 `
 
 interface CliArgs {
@@ -37,12 +39,18 @@ interface CliArgs {
   debug: boolean
   config: string
   filename: string
+  version: boolean
 }
 
 const args = parse(Deno.args) as CliArgs
+const pkg = getPkg()
 
 if (args.help) {
   console.log(__HELP)
+  Deno.exit()
+}
+if (args.version) {
+  console.log(pkg.version)
   Deno.exit()
 }
 console.log(LOGO)
@@ -64,6 +72,7 @@ if (args.config) {
     Deno.exit(1)
   }
 }
+logger.debug('Config path:', config)
 
 const openSSLConfig: Partial<OpenSSLConfig> = {}
 

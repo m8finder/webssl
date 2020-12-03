@@ -112,6 +112,7 @@ make install
 - [ ] make it available in:
   - [ ] npm
   - [ ] brew
+- [ ] use json import when ready: https://github.com/denoland/deno/issues/7623
 
 ---
 

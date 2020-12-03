@@ -9,6 +9,6 @@ export const getPkg = (): Pkg => {
     name: "webssl",
     description:
       "Simply create an OpenSSL certificate for your local web or mobile development that just work!",
-    version: "3.3.4",
+    version: "3.4.0",
   };
 };

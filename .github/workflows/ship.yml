@@ -16,6 +16,8 @@ jobs:
 
       - name: Setup Deno
         uses: denolib/setup-deno@v2
+        run: |
+          deno install -Afq --unstable https://x.nest.land/eggs@0.3.2/eggs.ts
 
       - name: Set version
         id: version
@@ -26,14 +28,14 @@ jobs:
 
       - name: Publish module
         run: |
-          deno run -A --unstable https://x.nest.land/eggs@0.2.1/mod.ts link ${{ secrets.NESTAPIKEY }}
-          deno run -A --unstable https://x.nest.land/eggs@0.2.1/mod.ts publish --version ${{ steps.version.outputs.version }}
+          eggs link ${{ secrets.NESTAPIKEY }}
+          eggs publish --version ${{ steps.version.outputs.version }}
 
       - name: Create latest changelog
         uses: actions/setup-node@v1
         with:
           node-version: "lts"
-        run: npx conventional-changelog-cli -r 1 -o latest-changelog.md
+        run: npx conventional-changelog-cli -u false -o latest-changelog.md -u false
 
       - name: Create a Release
         uses: actions/create-release@v1

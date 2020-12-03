@@ -23,7 +23,7 @@ setup:
 	@command -v lefthook >/dev/null 2>&1 || { echo >&2 "I require 'lefthook' but it's not installed. Aborting."; exit 1; }
 	lefthook install
 
-release:
+release: lint test
 	@echo "Release preparation started..."
 	@echo "Did you increased the version in pkg.ts and egg.json? [y/N] " && read ans && [ $${ans:-N} = y ]
 	@echo "Creating latest changelogs"

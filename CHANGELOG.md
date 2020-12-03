@@ -1,5 +1,14 @@
 ##  (2020-12-03)
 
+* feat: add names ([38702a6](https://github.com/m8finder/webssl/commit/38702a6))
+* feat: bump version ([48af1f0](https://github.com/m8finder/webssl/commit/48af1f0))
+* fix: use personal github token to force release ci event ([c0b48b4](https://github.com/m8finder/webssl/commit/c0b48b4))
+
+
+
+## <small>3.3.2 (2020-12-03)</small>
+
+* chore: update changelog ([fdf25cd](https://github.com/m8finder/webssl/commit/fdf25cd))
 * feat: add needs to release to wait for lint and test ([3d85fba](https://github.com/m8finder/webssl/commit/3d85fba))
 * feat: add release token ([d15313a](https://github.com/m8finder/webssl/commit/d15313a))
 * feat: bump version ([d2724cf](https://github.com/m8finder/webssl/commit/d2724cf))

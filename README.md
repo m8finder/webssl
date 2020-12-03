@@ -22,7 +22,7 @@ your local web or mobile development that just work!
 > Requires [Deno](https://deno.land/)
 
 ```shell
-deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/main/cli.ts
+deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/v3.4.0/mod.ts
 ```
 
 | Flag            | Explanation                                       |
@@ -39,7 +39,7 @@ blockchain.
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/webssl)
 
 ```
-deno install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.1.0/cli.ts
+deno install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.4.0/cli.ts
 ```
 
 ## Usage

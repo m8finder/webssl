@@ -25,6 +25,7 @@ setup:
 
 release: lint test
 	@echo "Release preparation started..."
+	@echo "Make sure you have updated the version in the readme."
 	@echo "Did you increased the version in pkg.ts and egg.json? [y/N] " && read ans && [ $${ans:-N} = y ]
 	@echo "Creating latest changelogs"
 	npx conventional-changelog-cli -t v -i CHANGELOG.md -s -r 0

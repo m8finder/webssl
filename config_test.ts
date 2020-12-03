@@ -17,8 +17,8 @@ test("getFileConfig: successfully get config file", async () => {
   assert(typeof config === "object");
 });
 
-test("getFileConfig: no config file found", () => {
-  assertThrowsAsync(
+test("getFileConfig: no config file found", async () => {
+  await assertThrowsAsync(
     () => {
       return getFileConfig("fail");
     },

@@ -51,8 +51,6 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v1
-        with:
-          node-version: "lts"
 
       - name: Create latest changelog
         run: npx conventional-changelog-cli -u false -o latest-changelog.md -u false

@@ -1,5 +1,25 @@
 ##  (2020-12-03)
 
+* feat: add basic constraints for iOS development ([7f162e0](https://github.com/m8finder/webssl/commit/7f162e0))
+* feat: add lefthook ([ca3303b](https://github.com/m8finder/webssl/commit/ca3303b))
+* feat: add note for json import ([7a2ae34](https://github.com/m8finder/webssl/commit/7a2ae34))
+* feat: add openssl config array validation min length ([f2b2d45](https://github.com/m8finder/webssl/commit/f2b2d45))
+* feat: add to nest registry ([a366066](https://github.com/m8finder/webssl/commit/a366066))
+* feat: add workflows ([22eefb6](https://github.com/m8finder/webssl/commit/22eefb6))
+* feat: improve release ([aa830ce](https://github.com/m8finder/webssl/commit/aa830ce))
+* feat: improve release ([5e5c014](https://github.com/m8finder/webssl/commit/5e5c014))
+* feat: make domains optional and add ips ([a1c5c13](https://github.com/m8finder/webssl/commit/a1c5c13))
+* feat: pre-intall eggs ([46d8792](https://github.com/m8finder/webssl/commit/46d8792))
+* feat: update eggs version ([68c3c0a](https://github.com/m8finder/webssl/commit/68c3c0a))
+* feat: update install url ([3c399d3](https://github.com/m8finder/webssl/commit/3c399d3))
+* feat: update makefile with new setup and release targets ([0a774e1](https://github.com/m8finder/webssl/commit/0a774e1))
+* feat: update readme ([9903943](https://github.com/m8finder/webssl/commit/9903943))
+* chore: update gitignore with latest changelog file ([b099c0e](https://github.com/m8finder/webssl/commit/b099c0e))
+
+
+
+##  (2020-12-03)
+
 
 
 

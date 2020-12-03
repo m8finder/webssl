@@ -1,17 +1,17 @@
-import { getLogger } from 'https://deno.land/std/log/mod.ts'
-import { parse } from 'https://deno.land/std/flags/mod.ts'
+import { getLogger } from "https://deno.land/std/log/mod.ts";
+import { parse } from "https://deno.land/std/flags/mod.ts";
 
-import { setupLog } from './log.ts'
-import { OpenSSLConfig } from './openssl.ts'
-import { run } from './mod.ts'
-import { getPkg } from './pkg.ts'
+import { setupLog } from "./log.ts";
+import { OpenSSLConfig } from "./openssl.ts";
+import { run } from "./mod.ts";
+import { getPkg } from "./pkg.ts";
 
 const LOGO = `
    _ _ _     _   _____ _____ __
   | | | |___| |_|   __|   __|  |
   | | | | -_| . |__   |__   |  |__
   |_____|___|___|_____|_____|_____|
-`
+`;
 
 const __HELP = `${LOGO}
   Create certificates for local web and mobile development with ease.
@@ -31,65 +31,65 @@ const __HELP = `${LOGO}
     --config          path to a custom config toml
     --filename        the generated files filename
     --version         print the program version
-`
+`;
 
 interface CliArgs {
-  _: string[]
-  help: boolean
-  debug: boolean
-  config: string
-  filename: string
-  version: boolean
+  _: string[];
+  help: boolean;
+  debug: boolean;
+  config: string;
+  filename: string;
+  version: boolean;
 }
 
-const args = parse(Deno.args) as CliArgs
-const pkg = getPkg()
+const args = parse(Deno.args) as CliArgs;
+const pkg = getPkg();
 
 if (args.help) {
-  console.log(__HELP)
-  Deno.exit()
+  console.log(__HELP);
+  Deno.exit();
 }
 if (args.version) {
-  console.log(pkg.version)
-  Deno.exit()
+  console.log(pkg.version);
+  Deno.exit();
 }
-console.log(LOGO)
+console.log(LOGO);
 
-await setupLog(args.debug ? 'DEBUG' : 'INFO')
+await setupLog(args.debug ? "DEBUG" : "INFO");
 
-const logger = getLogger('cli')
-logger.info('Starting...')
+const logger = getLogger("cli");
+logger.info("Starting...");
 
-logger.debug('Args:', JSON.stringify(args, null, 2))
+logger.debug("Args:", JSON.stringify(args, null, 2));
 
-let config = undefined
+let config = undefined;
 if (args.config) {
-  if (typeof args.config === 'string') {
-    logger.info('Set config path to:', args.config)
-    config = args.config
+  if (typeof args.config === "string") {
+    logger.info("Set config path to:", args.config);
+    config = args.config;
   } else {
-    console.log('`--config` must be a file path')
-    Deno.exit(1)
+    console.log("`--config` must be a file path");
+    Deno.exit(1);
   }
 }
-logger.debug('Config path:', config)
+logger.debug("Config path:", config);
 
-const openSSLConfig: Partial<OpenSSLConfig> = {}
+const openSSLConfig: Partial<OpenSSLConfig> = {};
 
 if (args.filename) {
-  if (typeof args.filename === 'string') {
-    openSSLConfig.filename = args.filename
+  if (typeof args.filename === "string") {
+    openSSLConfig.filename = args.filename;
   } else {
-    console.log('`--filename` must be a string')
-    Deno.exit(1)
+    console.log("`--filename` must be a string");
+    Deno.exit(1);
   }
 }
 
 if (args._.length > 0) {
-  openSSLConfig.destination = args._[0]
+  openSSLConfig.destination = args._[0];
 }
 
 run(openSSLConfig, {
   config: config,
-  debug: args.debug ? true : false
-})
+  debug: args.debug ? true : false,
+});

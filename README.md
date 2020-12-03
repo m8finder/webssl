@@ -3,8 +3,8 @@
   <br><br><p><b>WebSSL – OpenSSL for web and mobile development</b></p>
 </h1>
 
-Simply create [OpenSSL](https://de.wikipedia.org/wiki/OpenSSL) certificates for your local web or
-mobile development that just work!
+Simply create [OpenSSL](https://de.wikipedia.org/wiki/OpenSSL) certificates for
+your local web or mobile development that just work!
 
 - [Installation](#installation)
   - [Extra security?](#extra-security)
@@ -31,7 +31,8 @@ deno install --force --allow-read --allow-write --allow-run --name webssl https:
 
 ### Extra security?
 
-Use [Nest](https://nest.land/) to securely install this package using blockchain.
+Use [Nest](https://nest.land/) to securely install this package using
+blockchain.
 
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/webssl)
 
@@ -46,8 +47,9 @@ webssl [options] <destination>
 webssl --filename dev_cert
 ```
 
-> The default destination is `certs`. To override it just prepend a path (relative or absolute) to
-> the command but make sure it is not following any option flag.
+> The default destination is `certs`. To override it just prepend a path
+> (relative or absolute) to the command but make sure it is not following any
+> option flag.
 
 ### Options
 
@@ -60,7 +62,8 @@ webssl --filename dev_cert
 
 ### Config
 
-The configuration is written in toml. [Read more about toml](https://github.com/toml-lang/toml)
+The configuration is written in toml.
+[Read more about toml](https://github.com/toml-lang/toml)
 
 Example `webssl.toml` file:
 
@@ -88,8 +91,9 @@ emailAddress            = "mail@example.com"
 
 ## Tips
 
-If you work on a Mac, I recommend you to create a new keychain called `development` where you save
-all certificates that are unsafe or only for the purpose of development.
+If you work on a Mac, I recommend you to create a new keychain called
+`development` where you save all certificates that are unsafe or only for the
+purpose of development.
 
 ## Development
 
@@ -116,5 +120,5 @@ make install
 
 ---
 
-> This is not affiliated with OpenSSL. OpenSSL and the above logo is a registered trademark owned by
-> OpenSSL Software Foundation.
+> This is not affiliated with OpenSSL. OpenSSL and the above logo is a
+> registered trademark owned by OpenSSL Software Foundation.

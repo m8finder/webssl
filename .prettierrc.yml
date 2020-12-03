@@ -1,5 +1,2 @@
-trailingComma: none
-singleQuote: true
-printWidth: 100
-semi: false
+# prettier is only used for markdown
 proseWrap: always

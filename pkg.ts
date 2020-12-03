@@ -1,14 +1,14 @@
 interface Pkg {
-  name: string
-  description: string
-  version: string
+  name: string;
+  description: string;
+  version: string;
 }
 
 export const getPkg = (): Pkg => {
   return {
-    name: 'webssl',
+    name: "webssl",
     description:
-      'Simply create an OpenSSL certificate for your local web or mobile development that just work!',
-    version: '3.2.1'
-  }
-}
+      "Simply create an OpenSSL certificate for your local web or mobile development that just work!",
+    version: "3.2.1",
+  };
+};

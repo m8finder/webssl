@@ -1,7 +1,7 @@
-import { getLogger } from 'https://deno.land/std/log/mod.ts'
+import { getLogger } from "https://deno.land/std/log/mod.ts";
 
-import { getFileConfig, Config } from './config.ts'
-import { OpenSSL, OpenSSLConfig } from './openssl.ts'
+import { Config, getFileConfig } from "./config.ts";
+import { OpenSSL, OpenSSLConfig } from "./openssl.ts";
 
 /**
  * Run the program.
@@ -9,24 +9,31 @@ import { OpenSSL, OpenSSLConfig } from './openssl.ts'
  * @param {Config} optionalConfig
  * @param {string} configFilePath
  */
-export async function run(openSSLConfig: Partial<OpenSSLConfig>, runnerConfig: Config) {
-  const logger = getLogger('mod')
+export async function run(
+  openSSLConfig: Partial<OpenSSLConfig>,
+  runnerConfig: Config,
+) {
+  const logger = getLogger("mod");
 
-  let fileConfig
+  let fileConfig;
   try {
-    fileConfig = await getFileConfig(runnerConfig.config)
+    fileConfig = await getFileConfig(runnerConfig.config);
   } catch (error) {
-    throw error
+    throw error;
   }
 
   const defaultConfig: Partial<OpenSSLConfig> = {
-    filename: 'dev',
-    destination: 'certs'
-  }
-  const config = { ...defaultConfig, ...fileConfig, ...openSSLConfig } as OpenSSLConfig
+    filename: "dev",
+    destination: "certs",
+  };
+  const config = {
+    ...defaultConfig,
+    ...fileConfig,
+    ...openSSLConfig,
+  } as OpenSSLConfig;
 
-  const openssl = new OpenSSL(config)
-  await openssl.generate()
+  const openssl = new OpenSSL(config);
+  await openssl.generate();
 
-  logger.info('Done!')
+  logger.info("Done!");
 }

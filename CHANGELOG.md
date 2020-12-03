@@ -1,5 +1,14 @@
 ##  (2020-12-03)
 
+* feat: run lint and test before release ([af704d5](https://github.com/m8finder/webssl/commit/af704d5))
+* feat: update release ci ([86b2905](https://github.com/m8finder/webssl/commit/86b2905))
+* fix: lint errors ([6426923](https://github.com/m8finder/webssl/commit/6426923))
+* chore: bump version ([302b5fe](https://github.com/m8finder/webssl/commit/302b5fe))
+
+
+
+##  (2020-12-03)
+
 * feat: add basic constraints for iOS development ([7f162e0](https://github.com/m8finder/webssl/commit/7f162e0))
 * feat: add lefthook ([ca3303b](https://github.com/m8finder/webssl/commit/ca3303b))
 * feat: add note for json import ([7a2ae34](https://github.com/m8finder/webssl/commit/7a2ae34))

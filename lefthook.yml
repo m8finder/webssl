@@ -1,0 +1,10 @@
+# Lefthook
+#
+# https://github.com/Arkweid/lefthook/blob/master/docs/full_guide.md
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.{ts}"
+      run: make lint

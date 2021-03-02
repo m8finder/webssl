@@ -26,7 +26,7 @@ your local web or mobile development that just work!
 ### Default
 
 ```shell
-deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/main/mod.ts
+deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/main/cli.ts
 ```
 
 > You can also specify a release version instead:
@@ -46,7 +46,7 @@ deno install --force --allow-read --allow-write --allow-run --name webssl https:
 or with eggs:
 
 ```
-eggs install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@latest/cli.ts
+eggs install --force --allow-read --allow-write --allow-run https://x.nest.land/webssl@latest/cli.ts
 ```
 
 > You can also specify a release version instead:

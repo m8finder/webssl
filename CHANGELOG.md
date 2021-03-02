@@ -1,5 +1,18 @@
 ##  (2021-03-02)
 
+
+
+
+## <small>3.5.2 (2021-03-02)</small>
+
+* chore: remove broken test ([3bcfff6](https://github.com/m8finder/webssl/commit/3bcfff6))
+* feat: update egg version ([e766b5a](https://github.com/m8finder/webssl/commit/e766b5a))
+
+
+
+## 3.5.0 (2021-03-02)
+
+* chore: updated changelog ([11f6024](https://github.com/m8finder/webssl/commit/11f6024))
 * feat: housekeeping and dep updating ([f0958a7](https://github.com/m8finder/webssl/commit/f0958a7))
 * feat: increase version in readme ([5d11e3a](https://github.com/m8finder/webssl/commit/5d11e3a))
 

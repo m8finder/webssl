@@ -111,7 +111,7 @@ purpose of development.
 ## Development
 
 Please run `make setup` before starting any development. Increase the version in
-`pkg.ts` **and** `egg.json` if you are allowed to create a release.
+`pkg.ts` if you are allowed to create a release.
 
 Install globally with the following command:
 

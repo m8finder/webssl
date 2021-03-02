@@ -45,19 +45,23 @@ changelog:
 
 # Create setup
 setup:
-	@command -v lefthook >/dev/null 2>&1 || { echo >&2 "I require 'lefthook' but it's not installed. Aborting."; exit 1; }
 	lefthook install
 
 # Create release
 release: lint test
 	@echo "Release preparation started..."
-	@echo "Make sure you have updated the version in the readme."
-	@echo "Did you increased the version in pkg.ts and egg.json? [y/N] " && read ans && [ $${ans:-N} = y ]
-	@echo "Creating latest changelogs"
-	npx conventional-changelog-cli -t v -i CHANGELOG.md -s -r 0
-	git add CHANGELOG.md && git commit -m "chore: updated changelog"
+
+	@echo "Did you increased the version in pkg.ts? [y/N] " && read ans && [ $${ans:-N} = y ]
+
 	@echo "Tagging release to v$(VERSION)"
 	git tag -am "chore: new release v$(VERSION)" v$(VERSION)
+
+	@echo "Creating latest changelog"
+	npx conventional-changelog-cli -t v -i CHANGELOG.md -s -r 0
+	git add CHANGELOG.md && git commit -m "chore: updated changelog"
+
+	@echo "Publishing to egg"
+	eggs publish --version $(VERSION) --yes --dry-run
+
 	git push --follow-tags origin main
-	eggs publish --version $(VERSION) --check-installation --dry-run --entry cli.ts
 

@@ -12,6 +12,6 @@
   ],
   "files": [
     "*.ts",
-    "README.md"
+    "*.md"
   ]
 }

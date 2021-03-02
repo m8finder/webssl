@@ -1,7 +1,15 @@
 {
   "name": "webssl",
+  "version": "3.5.1",
   "description": "Simply create an OpenSSL certificate for your local web or mobile development that just work!",
   "repository": "https://github.com/m8finder/webssl/",
+  "homepage": "https://github.com/m8finder/webssl/",
+  "entry": "./cli.ts",
+  "unlisted": false,
+  "check": true,
+  "ignore": [
+    "*_test.ts"
+  ],
   "files": [
     "*.ts",
     "README.md"

@@ -43,6 +43,12 @@ blockchain.
 deno install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@latest/cli.ts
 ```
 
+or with eggs:
+
+```
+eggs install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@latest/cli.ts
+```
+
 > You can also specify a release version instead:
 > https://x.nest.land/webssl@3.4.0/cli.ts
 

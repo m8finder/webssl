@@ -11,6 +11,7 @@ your local web or mobile development that just work!
 - [Installation](#installation)
   - [Default](#default)
   - [Nest](#nest)
+  - [Flags](#flags)
 - [Usage](#usage)
   - [Options](#options)
   - [Config](#config)
@@ -21,14 +22,6 @@ your local web or mobile development that just work!
 ## Installation
 
 > Requires [Deno](https://deno.land/)
-
-| Flag            | Explanation                                       |
-| --------------- | ------------------------------------------------- |
-| `--allow-read`  | To read written certificate parts and your config |
-| `--allow-write` | To write certificate parts                        |
-| `--allow-run`   | To run the `openssl` command                      |
-| `--force`       | Override existing instances                       |
-| `--name`        | Use `webssl` as the executable binary name        |
 
 ### Default
 
@@ -47,11 +40,21 @@ blockchain.
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/webssl)
 
 ```
-deno install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.4.0/cli.ts
+deno install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@latest/cli.ts
 ```
 
 > You can also specify a release version instead:
-> https://raw.githubusercontent.com/m8finder/webssl/v3.0.0/mod.ts
+> https://x.nest.land/webssl@3.4.0/cli.ts
+
+### Flags
+
+| Flag            | Explanation                                       |
+| --------------- | ------------------------------------------------- |
+| `--allow-read`  | To read written certificate parts and your config |
+| `--allow-write` | To write certificate parts                        |
+| `--allow-run`   | To run the `openssl` command                      |
+| `--force`       | Override existing instances                       |
+| `--name`        | Use `webssl` as the executable binary name        |
 
 ## Usage
 

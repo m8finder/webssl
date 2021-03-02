@@ -1,5 +1,5 @@
-import { getLogger } from "https://deno.land/std/log/mod.ts";
-import { parse } from "https://deno.land/std/flags/mod.ts";
+import { getLogger } from "https://deno.land/std@0.88.0/log/mod.ts";
+import { parse } from "https://deno.land/std@0.88.0/flags/mod.ts";
 
 import { setupLog } from "./log.ts";
 import { OpenSSLConfig } from "./openssl.ts";
@@ -44,52 +44,48 @@ interface CliArgs {
 
 const args = parse(Deno.args) as CliArgs;
 const pkg = getPkg();
+const debug = typeof args.debug === "boolean" ? args.debug : false;
 
 if (args.help) {
   console.log(__HELP);
   Deno.exit();
 }
+
 if (args.version) {
   console.log(pkg.version);
   Deno.exit();
 }
+
 console.log(LOGO);
 
-await setupLog(args.debug ? "DEBUG" : "INFO");
+await setupLog(debug ? "DEBUG" : "INFO", debug);
 
 const logger = getLogger("cli");
 logger.info("Starting...");
 
-logger.debug("Args:", JSON.stringify(args, null, 2));
-
-let config = undefined;
-if (args.config) {
-  if (typeof args.config === "string") {
-    logger.info("Set config path to:", args.config);
-    config = args.config;
-  } else {
-    console.log("`--config` must be a file path");
-    Deno.exit(1);
-  }
-}
-logger.debug("Config path:", config);
+logger.debug("Args:\n", JSON.stringify(args, null, 2));
 
 const openSSLConfig: Partial<OpenSSLConfig> = {};
 
 if (args.filename) {
-  if (typeof args.filename === "string") {
-    openSSLConfig.filename = args.filename;
-  } else {
-    console.log("`--filename` must be a string");
-    Deno.exit(1);
-  }
+  openSSLConfig.filename = args.filename;
 }
 
 if (args._.length > 0) {
   openSSLConfig.destination = args._[0];
 }
 
-run(openSSLConfig, {
-  config: config,
-  debug: args.debug ? true : false,
-});
+try {
+  await run(openSSLConfig, {
+    config: args.config,
+    debug: debug,
+  });
+  logger.info("Done!");
+} catch (error) {
+  if (debug) {
+    logger.error(error);
+  } else {
+    logger.error(error.message);
+    console.log(__HELP);
+  }
+}

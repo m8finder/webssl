@@ -1,7 +1,10 @@
-import { getLogger } from "https://deno.land/std/log/mod.ts";
-
 import { Config, getFileConfig } from "./config.ts";
 import { OpenSSL, OpenSSLConfig } from "./openssl.ts";
+
+const defaultConfig: Partial<OpenSSLConfig> = {
+  filename: "dev",
+  destination: "certs",
+};
 
 /**
  * Run the program.
@@ -13,27 +16,15 @@ export async function run(
   openSSLConfig: Partial<OpenSSLConfig>,
   runnerConfig: Config,
 ) {
-  const logger = getLogger("mod");
+  const fileConfig = await getFileConfig(runnerConfig.config);
 
-  let fileConfig;
-  try {
-    fileConfig = await getFileConfig(runnerConfig.config);
-  } catch (error) {
-    throw error;
-  }
-
-  const defaultConfig: Partial<OpenSSLConfig> = {
-    filename: "dev",
-    destination: "certs",
-  };
   const config = {
     ...defaultConfig,
     ...fileConfig,
     ...openSSLConfig,
-  } as OpenSSLConfig;
+  };
 
   const openssl = new OpenSSL(config);
-  await openssl.generate();
 
-  logger.info("Done!");
+  return openssl.generate();
 }

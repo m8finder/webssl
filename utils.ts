@@ -1,5 +1,5 @@
-import { dirname, fromFileUrl } from "https://deno.land/std/path/mod.ts";
-import { getLogger } from "https://deno.land/std/log/mod.ts";
+import { dirname, fromFileUrl } from "https://deno.land/std@0.88.0/path/mod.ts";
+import { getLogger } from "https://deno.land/std@0.88.0/log/mod.ts";
 
 export const __dirname = dirname(fromFileUrl(import.meta.url));
 

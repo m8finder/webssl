@@ -9,7 +9,8 @@ Simply create [OpenSSL](https://de.wikipedia.org/wiki/OpenSSL) certificates for
 your local web or mobile development that just work!
 
 - [Installation](#installation)
-  - [Extra security?](#extra-security)
+  - [Default](#default)
+  - [Nest](#nest)
 - [Usage](#usage)
   - [Options](#options)
   - [Config](#config)
@@ -21,17 +22,24 @@ your local web or mobile development that just work!
 
 > Requires [Deno](https://deno.land/)
 
-```shell
-deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/v3.4.0/mod.ts
-```
-
 | Flag            | Explanation                                       |
 | --------------- | ------------------------------------------------- |
 | `--allow-read`  | To read written certificate parts and your config |
 | `--allow-write` | To write certificate parts                        |
 | `--allow-run`   | To run the `openssl` command                      |
+| `--force`       | Override existing instances                       |
+| `--name`        | Use `webssl` as the executable binary name        |
 
-### Extra security?
+### Default
+
+```shell
+deno install --force --allow-read --allow-write --allow-run --name webssl https://raw.githubusercontent.com/m8finder/webssl/main/mod.ts
+```
+
+> You can also specify a release version instead:
+> https://raw.githubusercontent.com/m8finder/webssl/v3.0.0/mod.ts
+
+### Nest
 
 Use [Nest](https://nest.land/) to securely install this package using
 blockchain.
@@ -41,6 +49,9 @@ blockchain.
 ```
 deno install --force --allow-read --allow-write --allow-run --name webssl https://x.nest.land/webssl@3.4.0/cli.ts
 ```
+
+> You can also specify a release version instead:
+> https://raw.githubusercontent.com/m8finder/webssl/v3.0.0/mod.ts
 
 ## Usage
 

@@ -1,8 +1,12 @@
-import { isAbsolute, join, resolve } from "https://deno.land/std/path/mod.ts";
-import { getLogger } from "https://deno.land/std/log/mod.ts";
-import { parse } from "https://deno.land/std/encoding/toml.ts";
+import {
+  isAbsolute,
+  join,
+  resolve,
+} from "https://deno.land/std@0.88.0/path/mod.ts";
+import { getLogger } from "https://deno.land/std@0.88.0/log/mod.ts";
+import { parse } from "https://deno.land/std@0.88.0/encoding/toml.ts";
 
-const logger = getLogger("config");
+import { OpenSSLConfig } from "./openssl.ts";
 
 export interface Config {
   config?: string;
@@ -14,7 +18,9 @@ export interface Config {
  */
 export async function getFileConfig(
   filePath?: string,
-): Promise<Record<string, unknown>> {
+): Promise<OpenSSLConfig> {
+  const logger = getLogger("config");
+
   let possiblePath = filePath || join(Deno.cwd(), "webssl.toml");
   if (!isAbsolute(possiblePath)) {
     possiblePath = resolve(possiblePath);
@@ -24,11 +30,10 @@ export async function getFileConfig(
 
   try {
     const contents = await Deno.readTextFile(possiblePath);
-    return parse(contents);
+    return parse(contents) as unknown as OpenSSLConfig;
   } catch (error) {
     if (error instanceof Deno.errors.NotFound) {
-      logger.warning("Could not find any config file for " + possiblePath);
-      throw new ReferenceError(
+      throw new Error(
         "Could not find any config file for " + possiblePath,
       );
     }

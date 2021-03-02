@@ -1,6 +1,5 @@
-import { getLogger } from "https://deno.land/std/log/mod.ts";
-import { Logger } from "https://deno.land/std/log/logger.ts";
-import { join } from "https://deno.land/std/path/mod.ts";
+import { getLogger, Logger } from "https://deno.land/std@0.88.0/log/mod.ts";
+import { join } from "https://deno.land/std@0.88.0/path/mod.ts";
 
 import {
   firstMessages,
@@ -57,7 +56,7 @@ export class OpenSSL {
     try {
       await this.validateConfig();
     } catch (error) {
-      Deno.exit();
+      throw new Error(error);
     }
 
     const destinationNotEmpty = await this.checkDestination();

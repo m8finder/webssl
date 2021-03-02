@@ -1,8 +1,8 @@
 import {
   assert,
   assertThrowsAsync,
-} from "https://deno.land/std/testing/asserts.ts";
-import { resolve } from "https://deno.land/std/path/mod.ts";
+} from "https://deno.land/std@0.88.0/testing/asserts.ts";
+import { resolve } from "https://deno.land/std@0.88.0/path/mod.ts";
 
 import { getFileConfig } from "./config.ts";
 import { __dirname } from "./utils.ts";
@@ -22,7 +22,7 @@ test("getFileConfig: no config file found", async () => {
     () => {
       return getFileConfig("fail");
     },
-    ReferenceError,
+    Error,
     "Could not find any config file",
   );
 });

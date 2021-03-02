@@ -1,21 +1,21 @@
-import { handlers, setup } from "https://deno.land/std/log/mod.ts";
-import { LevelName } from "https://deno.land/std/log/levels.ts";
+import {
+  handlers,
+  LevelName,
+  setup,
+} from "https://deno.land/std@0.88.0/log/mod.ts";
 
-export function setupLog(level: LevelName = "INFO") {
+export function setupLog(level: LevelName = "INFO", debug = false) {
   return setup({
     handlers: {
       console: new handlers.ConsoleHandler("DEBUG", {
-        formatter: "  [{levelName}] {msg} {args}",
+        formatter: debug
+          ? "  [{levelName}] ({loggerName}) {msg} {args}"
+          : "  {msg} {args}",
       }),
-      // file: new handlers.FileHandler('WARNING', {
-      //   filename: './webssl.log',
-      //   formatter: '{datetime} {levelName} {msg}',
-      //   mode: 'w',
-      // }),
     },
     loggers: {
       default: {
-        level: "INFO",
+        level: "DEBUG",
         handlers: ["console"],
       },
       cli: {
@@ -23,10 +23,6 @@ export function setupLog(level: LevelName = "INFO") {
         handlers: ["console"],
       },
       config: {
-        level: level,
-        handlers: ["console"],
-      },
-      mod: {
         level: level,
         handlers: ["console"],
       },

@@ -3,6 +3,17 @@
 
 
 
+## <small>3.5.4 (2021-03-02)</small>
+
+* chore: bump version ([72d98ae](https://github.com/m8finder/webssl/commit/72d98ae))
+* chore: include eggs installation method ([69f00ad](https://github.com/m8finder/webssl/commit/69f00ad))
+* chore: update readme with egg version ([dbc6d20](https://github.com/m8finder/webssl/commit/dbc6d20))
+* chore: updated changelog ([435893c](https://github.com/m8finder/webssl/commit/435893c))
+* fix: bump egg version ([0a2c535](https://github.com/m8finder/webssl/commit/0a2c535))
+* fix: invalid posix ([5fe32cf](https://github.com/m8finder/webssl/commit/5fe32cf))
+
+
+
 ## <small>3.5.3 (2021-03-02)</small>
 
 * chore: better release ([8233991](https://github.com/m8finder/webssl/commit/8233991))

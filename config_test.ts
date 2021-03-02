@@ -5,12 +5,11 @@ import {
 import { resolve } from "https://deno.land/std@0.88.0/path/mod.ts";
 
 import { getFileConfig } from "./config.ts";
-import { __dirname } from "./utils.ts";
 
 const { test } = Deno;
 
 test("getFileConfig: successfully get config file", async () => {
-  const fixtureConfigPath = resolve(__dirname, "fixtures/valid.toml");
+  const fixtureConfigPath = resolve("fixtures/valid.toml");
 
   const config = await getFileConfig(fixtureConfigPath);
 

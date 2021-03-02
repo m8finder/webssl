@@ -1,6 +1,7 @@
 tmp
 latest-changelog.md
 coverage
+eggs-debug.log
 
 # Created by https://www.toptal.com/developers/gitignore/api/git,windows,linux,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,windows,linux,macos

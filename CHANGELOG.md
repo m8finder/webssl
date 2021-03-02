@@ -1,3 +1,18 @@
+##  (2021-03-02)
+
+
+
+
+## <small>3.5.3 (2021-03-02)</small>
+
+* chore: better release ([8233991](https://github.com/m8finder/webssl/commit/8233991))
+* chore: bump version ([c41a756](https://github.com/m8finder/webssl/commit/c41a756))
+* chore: update changelog ([842e0a4](https://github.com/m8finder/webssl/commit/842e0a4))
+* chore: updated changelog ([462b89f](https://github.com/m8finder/webssl/commit/462b89f))
+* fix: no dry-run ([7b845c0](https://github.com/m8finder/webssl/commit/7b845c0))
+
+
+
 ## <small>3.5.2 (2021-03-02)</small>
 
 * chore: remove broken test ([3bcfff6](https://github.com/m8finder/webssl/commit/3bcfff6))

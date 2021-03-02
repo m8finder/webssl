@@ -1,6 +1,6 @@
 {
   "name": "webssl",
-  "version": "3.5.1",
+  "version": "3.5.3",
   "description": "Simply create an OpenSSL certificate for your local web or mobile development that just work!",
   "repository": "https://github.com/m8finder/webssl/",
   "homepage": "https://github.com/m8finder/webssl/",

@@ -63,6 +63,7 @@ release: lint test
 
 	@echo "Publishing to egg"
 	eggs publish --version $(VERSION) --yes
+	git add egg.json && git commit -m "chore: bump egg version"
 
 	git push --follow-tags origin main
 

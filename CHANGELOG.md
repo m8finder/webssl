@@ -1,8 +1,3 @@
-##  (2021-03-02)
-
-
-
-
 ## <small>3.5.2 (2021-03-02)</small>
 
 * chore: remove broken test ([3bcfff6](https://github.com/m8finder/webssl/commit/3bcfff6))

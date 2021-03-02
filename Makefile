@@ -45,6 +45,7 @@ changelog:
 
 # Create setup
 setup:
+	# https://github.com/Arkweid/lefthook
 	lefthook install
 
 # Create release

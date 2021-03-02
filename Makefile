@@ -61,7 +61,7 @@ release: lint test
 	git add CHANGELOG.md && git commit -m "chore: updated changelog"
 
 	@echo "Publishing to egg"
-	eggs publish --version $(VERSION) --yes --dry-run
+	eggs publish --version $(VERSION) --yes
 
 	git push --follow-tags origin main
 
